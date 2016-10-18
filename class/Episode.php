@@ -5,10 +5,29 @@
  */
 class Episode
 {
+    /**
+     * @var int
+     */
     private $id;
+
+    /**
+     * @var int
+     */
     private $episode_nr;
+
+    /**
+     * @var string
+     */
     private $titre;
+
+    /**
+     * @var null
+     */
     private $details = null;
+
+    /**
+     * @var null
+     */
     private $keywords = null;
 
     /**

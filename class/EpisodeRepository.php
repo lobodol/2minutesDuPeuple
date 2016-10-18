@@ -8,7 +8,7 @@ class EpisodeRepository extends Repository
     /**
      * Get the list of episodes orderd by "details" and "titre"
      *
-     * @return multitype:Episode
+     * @return array
      */
     public function getAll()
     {
@@ -19,11 +19,13 @@ class EpisodeRepository extends Repository
 
         $episodes = array();
 
-        foreach ($result->fetchAll(PDO::FETCH_ASSOC) as $datas) {
-            $episode = new Episode();
-            $episode->bind($datas);
+        if (false !== $result) {
+            foreach ($result->fetchAll(PDO::FETCH_ASSOC) as $datas) {
+                $episode = new Episode();
+                $episode->bind($datas);
 
-            $episodes[] = $episode;
+                $episodes[] = $episode;
+            }
         }
 
         return $episodes;
@@ -35,7 +37,7 @@ class EpisodeRepository extends Repository
      * @param string $fulltext : the text to find out
      * @return array
      */
-    function getFulltextDatas($fulltext)
+    public function getFulltextDatas($fulltext)
     {
         $pdo = self::getDbInstance();
 
