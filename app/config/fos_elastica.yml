@@ -1,0 +1,16 @@
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    serializer:
+        callback_class: FOS\ElasticaBundle\Serializer\Callback
+        serializer: serializer
+    indexes:
+        app:
+            client: default
+            types:
+                Episode:
+                    mappings: ~
+                    persistence:
+                        driver: orm # orm, mongodb, propel are available
+                        model:  AppBundle\Entity\Episode
+                        provider: ~
