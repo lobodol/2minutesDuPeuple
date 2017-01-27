@@ -28,6 +28,14 @@ class Category
      */
     private $name;
 
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 
     /**
      * Get id
