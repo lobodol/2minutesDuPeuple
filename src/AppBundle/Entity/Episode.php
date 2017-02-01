@@ -3,12 +3,19 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Episode
  *
- * @ORM\Table(name="episode", indexes={@ORM\Index(name="keywords", columns={"keywords"})})
+ * @ORM\Table(name="episode", uniqueConstraints={@ORM\UniqueConstraint(name="unique_episode", columns={"category_id", "title", "number"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EpisodeRepository")
+ * @UniqueEntity(
+ *     fields={"category", "title", "number"},
+ *     errorPath="title",
+ *     message="An episode with same parameters already exists"
+ * )
  */
 class Episode
 {
@@ -26,6 +33,7 @@ class Episode
     /**
      * Category to which it belongs.
      *
+     * @Assert\Valid()
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
      */
     private $category;
@@ -35,6 +43,10 @@ class Episode
      *
      * @var int
      *
+     * @Assert\NotNull()
+     * @Assert\Range(
+     *     min = 1,
+     * )
      * @ORM\Column(name="number", type="integer")
      */
     private $number;
@@ -44,6 +56,7 @@ class Episode
      *
      * @var string
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -85,7 +98,7 @@ class Episode
     /**
      * Get category
      *
-     * @return int
+     * @return Category
      */
     public function getCategory()
     {
