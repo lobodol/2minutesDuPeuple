@@ -16,14 +16,14 @@
     <header>
         <div id="logo"></div>
         <a href="#recherche" id="loupe">
-            <img src="web/images/search.svg"/>
+            <img src="web/images/search.svg" alt="Search"/>
         </a>
 
         <div id="recherche">
             <a href="#"></a>
 
             <input type="text" id="cherche" placeholder="Recherche rapide" />
-            <img src="web/images/cross.svg" width="15" height="15" id="croix"/>
+            <img src="web/images/cross.svg" width="15" height="15" id="croix" alt="Close"/>
 
             <div id="results">
                 <ul id="list-results"></ul>
@@ -37,27 +37,27 @@ require_once 'autoload.php';
 try {
     $repo = new EpisodeRepository();
     $episodes = $repo->getAll();
-    
+
     echo "<ul id='listEpisodes'>";
-    
+
     foreach ($episodes as $key => $episode) {
         echo "<li id='" . $key . "'";
-        
+
         echo " attr-nb='{$episode->getFullEpisodeNr()}'";
-        
+
         if ($key == 0) {
             echo ' class="active" ';
         }
-        
+
         echo "><a href='" . $episode->getMp3() . "'><span>" . $episode->getTitre() . "</span>";
-        
+
         if (!is_null($episode->getDetails())) {
             echo "<span class='details'>" . $episode->getDetails() . "</span>";
         }
-        
+
         echo "</a></li>";
     }
-    
+
     echo "</ul>";
 
 } catch (Exception $e) {
@@ -65,12 +65,12 @@ try {
         case 404:
             echo "erreur 404 not found";
             break;
-            
+
         default:
             echo "erreur de ouf";
             break;
     }
-    
+
     die();
 }
 ?>
@@ -81,7 +81,7 @@ try {
         <div id="maxTime" class="time">0:00</div>
         <div id="duration"></div>
     </div>
-    
+
     <div id="controls">
         <div id="prev">
             <div class="prev"></div><!--
@@ -99,16 +99,16 @@ try {
 
 <aside id="social-share">
     <a href="#social-share">
-        <img alt="" src="web/images/share.svg" width="20" height="20" id="share-button">
+        <img alt="Social share buttons" src="web/images/share.svg" width="20" height="20" id="share-button">
     </a>
     <a href="https://www.facebook.com/sharer/sharer.php?u=www.firediy.fr" title="Partager sur Facebook" id="facebookButton" target="_blank"><!--
-        --><img src="web/images/facebook.svg" width="30" height="30" /><!--
+        --><img src="web/images/facebook.svg" width="30" height="30" alt="Partager sur Facebook"/><!--
      --></a>
     <a href="https://twitter.com/home?status=www.firediy.fr" title="Partager sur Twitter" id="twitterButton" target="_blank"><!--
-         --><img src="web/images/twitter.svg" width="30" height="30" /><!--
+         --><img src="web/images/twitter.svg" width="30" height="30" alt="Partager sur Twitter"/><!--
      --></a>
     <a href="https://plus.google.com/share?url=www.firediy.fr" title="Partager sur Google+" id="googleButton" target="_blank"><!--
-         --><img src="web/images/google.svg" width="30" height="30" /><!--
+         --><img src="web/images/google.svg" width="30" height="30" alt="Partager sur Google+"/><!--
      --></a>
 </aside>
 
