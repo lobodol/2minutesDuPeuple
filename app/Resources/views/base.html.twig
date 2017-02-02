@@ -2,12 +2,33 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+        <title>{% block title %}Le player du peuple{% endblock %}</title>
+
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        {% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <header>
+            {% block header %}{% endblock %}
+        </header>
+
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+
+        <footer>
+            {% block footer %}{% endblock %}
+        </footer>
+
+        {% block javascripts %}
+            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+            <script src="{{ asset('js/all.js') }}"></script>
+        {% endblock %}
     </body>
 </html>
