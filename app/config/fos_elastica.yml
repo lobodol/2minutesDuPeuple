@@ -14,3 +14,4 @@ fos_elastica:
                         driver: orm # orm, mongodb, propel are available
                         model:  AppBundle\Entity\Episode
                         provider: ~
+                        finder: ~
