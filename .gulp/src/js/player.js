@@ -114,13 +114,13 @@ function init()
                 var content = '';
 
                 if (data.length == 0) {
-                    content = "<li>Aucun résultat pour <i>" + fulltext + "</i></li>";
+                    content = "<li>Aucun rÃ©sultat pour <i>" + fulltext + "</i></li>";
                 }
 
                 // Append results to the result list
                 for (var i = 0; i < data.length; i++) {
                     var object = data[i];
-                    content += "<li attr-nb='" + object.episode_nr + "'><span>" + utf8_decode(object.titre) + "</span>";
+                    content += "<li data-nb='" + object.episode_nr + "'><span>" + utf8_decode(object.titre) + "</span>";
 
                     if (object.details != "") {
                         content += "<span class='details'>" + utf8_decode(object.details) + "</span>";
@@ -138,8 +138,8 @@ function init()
                 // When a track is selected in the result list
                 $('#list-results li').click(function() {
                     $('#list-results').hide();
-                    var nb = formatId($(this).attr('attr-nb'));
-                    var id = $('#listEpisodes li[attr-nb=' + nb + ']').attr('id');
+                    var nb = formatId($(this).attr('data-nb'));
+                    var id = $('#listEpisodes li[data-nb=' + nb + ']').attr('id');
                     id     = parseInt(id)-1; // Get the track ID just before the wanted one
                     var len = playlist.find('li').length - 1;
 
@@ -158,7 +158,7 @@ function init()
             });
         }
     });
-    
+
     $('#recherche').focusin(function() {
         var search = $('#cherche').val();
 
@@ -166,11 +166,11 @@ function init()
             $('#list-results').fadeIn();
         }
     });
-    
+
     $('#recherche').focusout(function() {
         $('#list-results').fadeOut();
     });
-    
+
     $('#croix').click(function() {
         $('#cherche').val('');
         $(this).hide();
@@ -360,7 +360,7 @@ function run(link)
     if (typeof details != "undefined") {
         titre += ' - ' + details;
     }
-    
+
     $('title').html(titre);
     updateShareLinks(id);
 
@@ -455,7 +455,7 @@ function stopLoading()
 
 /**
  * Prepends 0 to the ID in order to get a 4 digits ID
- * @param integer|string id
+ * @param {integer|string} id
  */
 function formatId(id)
 {
@@ -469,7 +469,7 @@ function formatId(id)
 }
 
 /**
- * 
+ *
  * @param string str_data
  * @returns
  */

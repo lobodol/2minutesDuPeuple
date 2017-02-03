@@ -36,6 +36,7 @@
 require_once 'autoload.php';
 try {
     $repo = new EpisodeRepository();
+    /** @var Episode[] $episodes */
     $episodes = $repo->getAll();
 
     echo "<ul id='listEpisodes'>";
@@ -43,7 +44,7 @@ try {
     foreach ($episodes as $key => $episode) {
         echo "<li id='" . $key . "'";
 
-        echo " attr-nb='{$episode->getFullEpisodeNr()}'";
+        echo " data-nb='{$episode->getFullEpisodeNr()}'";
 
         if ($key == 0) {
             echo ' class="active" ';
