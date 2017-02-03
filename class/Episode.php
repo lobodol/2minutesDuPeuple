@@ -103,7 +103,7 @@ class Episode
      */
     public function getMp3()
     {
-        return "web/mp3/" . $this->getFullEpisodeNr() . ".mp3";
+        return "/web/mp3/" . $this->getFullEpisodeNr() . ".mp3";
     }
 
     /**
