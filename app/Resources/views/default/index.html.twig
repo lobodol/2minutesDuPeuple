@@ -2,12 +2,19 @@
 
 {% block body %}
 <div id="PlayerWrapper">
-    <ul id="TrackList">
-        {% for track in episodes %}
-            <li class="TrackItem">
-                <a href="#">
-                    <span class="TrackItem-title">{{ track.title }}</span>
-                    <span class="TrackItem-category">{{ track.category }}</span>
+    <ul id="EpisodeList">
+        {% set class = 'EpisodeItem' %}
+
+        {% for episode in episodes %}
+            {# Set first episode active by default #}
+            {% if loop.first %}
+                {% set class = class ~ ' active' %}
+            {% endif %}
+
+            <li class="{{ class }}" data-nb="{{ episode.number }}">
+                <a href="{{ episode.mp3 }}">
+                    <span class="TrackItem-title">{{ episode.title }}</span>
+                    <span class="TrackItem-category">{{ episode.category }}</span>
                 </a>
             </li>
         {% endfor %}
@@ -28,5 +35,7 @@
             <div id="shuffle"></div>
         </div>
     </div>
+
+    {% include 'layout/social_share.html.twig' %}
 </div>
 {% endblock %}
