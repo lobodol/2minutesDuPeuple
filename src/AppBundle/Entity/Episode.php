@@ -130,6 +130,30 @@ class Episode
     }
 
     /**
+     * Get the number of the episode 3-digit-formatted.
+     *
+     * @return int|string
+     */
+    public function getRealNumber()
+    {
+        $nbDigits = 3;
+        $diff     = $nbDigits - strlen($this->number);
+        $number   = str_repeat('0', $diff).$this->number;
+
+        return $number;
+    }
+
+    /**
+     * Get relative path to the mp3 file of the episode.
+     *
+     * @return string
+     */
+    public function getMp3()
+    {
+        return sprintf("/mp3/%s.mp3", $this->getRealNumber());
+    }
+
+    /**
      * Set title
      *
      * @param string $title
