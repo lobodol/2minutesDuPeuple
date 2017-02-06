@@ -26,16 +26,24 @@ class EpisodeController extends FOSRestController
      *     filters={
      *         {"name"="sort", "dataType"="string", "values"={"title", "category"}},
      *         {"name"="order", "dataType"="string", "values"={"ASC", "DESC"}},
+     *         {"name"="fulltext", "dataType"="string", "description"="A fulltext filter to find any episode"},
      *     }
      * )
+     *
+     * @param Request $request : the current request object.
      * @return array
      */
-    public function getEpisodesAction()
+    public function getEpisodesAction(Request $request)
     {
+        // Get parameters from request.
+        $sort     = $request->get('sort', 'title');
+        $order    = $request->get('order', 'ASC');
+        $fulltext = $request->get('fulltext', '');
+
         /** @var Episode[] $episodes */
         $episodes = $this->getDoctrine()
             ->getRepository('AppBundle:Episode')
-            ->findAll();
+            ->getEpisodes($sort, $order, $fulltext);
 
         return $episodes;
     }
