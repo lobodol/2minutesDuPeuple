@@ -1,54 +1,162 @@
 #Player {
-  position: relative;
+  position: fixed;
+  bottom: 0;
 
-  height: 100px;
   width: 100%;
-  max-width: 700px;
-
-  margin: auto;
+  height: 166px;
 
   background-color: #2b2b2b;
+
+  &.small {
+    height: 60px;
+
+    #PlayerControls-prev,
+    #PlayerControls-next {
+      display: none;
+    }
+
+    #Player-currentEpisode {
+      display: block;
+    }
+  }
 }
 
-#PlayerControls div {
+#Player-currentEpisode {
+  display: none;
+
+  color: #eee;
+  font-size: 0.9em;
+}
+
+#PlayerControls > * {
   cursor: pointer;
   position: absolute;
 }
 
+// Play/Pause button.
 #PlayerControls-playpause {
   left: 50%;
   margin-top: 20px;
 
+  &.small {
+    left: 100%;
+    margin-left: -65px !important;
+    margin-top: -43px;
+    transform: scale(0.5);
+  }
+
   &.play {
     width: 0;
     height: 0;
+
     border-style: solid;
     border-width: 30px 0 30px 60px;
     border-color: transparent transparent transparent #eee;
+
     margin-left: -25px;
   }
 
   &.pause {
-    width: 9px;
+    width: 41px;
     height: 60px;
-    margin-left: -20px;
+
     border-left: solid 16px #eee;
     border-right: solid 16px #eee;
+    border-top: none;
+    border-bottom: none;
+
+    margin-left: -20px;
   }
 }
 
+// Previous button.
 #PlayerControls-prev {
+  position: relative;
+
   left: 25%;
   top: 52px;
+
+  width: 29px;
+  height: 35px;
+
   margin-left: -26px;
+
+  // Triangle.
+  &:before {
+    content: "";
+
+    position: absolute;
+
+    display: block;
+
+    width: 0;
+    height: 0;
+
+    left: 2px;
+
+    border-style: solid;
+    border-width: 15px 26px 15px 0;
+    border-color: transparent #eee transparent transparent;
+  }
+
+  // Vertical rectangle.
+  &:after {
+    content: '';
+    position: absolute;
+
+    display: block;
+
+    height: 30px;
+    width: 4px;
+
+    left: 0;
+
+    background-color: #eee;
+  }
 }
 
+// Next button.
 #PlayerControls-next {
   left: 75%;
   top: 52px;
   margin-left: -26px;
+
+  width: 29px;
+  height: 35px;
+
+  // Triangle block
+  &:before {
+    content: "";
+
+    position: absolute;
+
+    display: block;
+
+    width: 0;
+    height: 0;
+
+    border-style: solid;
+    border-width: 15px 0 15px 26px;
+    border-color: transparent transparent transparent #eee;
+  }
+
+  // Vertical rectangle.
+  &:after {
+    content: '';
+    position: absolute;
+
+    display: block;
+
+    height: 30px;
+    width: 4px;
+
+    right: 0;
+
+    background-color: #eee;
+  }
 }
 
+// Toggle shuffle mode button.
 #PlayerControls-shuffle {
   width: 36px;
   height: 26px;
@@ -61,6 +169,7 @@
   top: 118px;
 }
 
+// Toggle loop mode button.
 #PlayerControls-loop {
   width: 34px;
   height: 19px;
