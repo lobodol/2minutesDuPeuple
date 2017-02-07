@@ -1,41 +1,51 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div id="PlayerWrapper">
-    <ul id="EpisodeList">
-        {% set class = 'EpisodeItem' %}
+    <div id="PlayerWrapper">
+        <ul id="PlayList">
+            {% for episode in episodes %}
+                {# Set first episode active by default #}
+                {% if loop.first %}
+                    {% set class = 'EpisodeItem active' %}
+                {% else %}
+                    {% set class = 'EpisodeItem' %}
+                {% endif %}
 
-        {% for episode in episodes %}
-            {# Set first episode active by default #}
-            {% if loop.first %}
-                {% set class = class ~ ' active' %}
-            {% endif %}
+                <li class="{{ class }}" data-nb="{{ episode.number }}" data-mp3="{{ episode.mp3 }}">
+                    <span class="EpisodeItem-title">{{ episode.title }}</span>
 
-            <li class="{{ class }}" data-nb="{{ episode.number }}">
-                <a href="{{ episode.mp3 }}">
-                    <span class="TrackItem-title">{{ episode.title }}</span>
-                    <span class="TrackItem-category">{{ episode.category }}</span>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
+                    {% if episode.category is not empty %}
+                        <span class="EpisodeItem-category">{{ episode.category }}</span>
+                    {% endif %}
 
-    <div id="Player">
-        <div id="Player-progressBar">
-            <div id="currentTime" class="time">0:00</div>
-            <div id="maxTime" class="time">0:00</div>
-            <div id="duration"></div>
-        </div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ url('app.api.episode.get_one', {'episode': episode.id}) }}">edit</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
 
-        <div id="Player-controls">
-            <div id="prev"></div>
-            <div id="playpause" class="play"></div>
-            <div id="next"></div>
-            <div id="loop"></div>
-            <div id="shuffle"></div>
+        <div id="Player">
+            {# Title of the current episode #}
+            <div id="Player-currentEpisode"></div>
+
+            {# Visual information about duration #}
+            <div id="Player-progressBar">
+                <div id="Player-currentTime" class="time">0:00</div>
+                <div id="Player-maxTime" class="time">0:00</div>
+                <div id="Player-duration"></div>
+            </div>
+
+            {# Player's controls #}
+            <div id="PlayerControls">
+                <div id="PlayerControls-prev" class="button"></div>
+                <div id="PlayerControls-playpause" class="button play"></div>
+                <div id="PlayerControls-next" class="button"></div>
+                <div id="PlayerControls-loop" class="button"></div>
+                <div id="PlayerControls-shuffle" class="button"></div>
+            </div>
         </div>
     </div>
 
     {% include 'layout/social_share.html.twig' %}
-</div>
 {% endblock %}
