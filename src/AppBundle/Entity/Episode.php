@@ -136,7 +136,7 @@ class Episode
      */
     public function getRealNumber()
     {
-        $nbDigits = 3;
+        $nbDigits = 4;
         $diff     = $nbDigits - strlen($this->number);
         $number   = str_repeat('0', $diff).$this->number;
 
