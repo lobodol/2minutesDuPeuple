@@ -1,3 +1,5 @@
-$(function() {
-   EasterEgg.init();
+$(function () {
+    EasterEgg.init();
+
+    Player.init();
 });
