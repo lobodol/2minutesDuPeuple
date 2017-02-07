@@ -1,0 +1,95 @@
+#PlayList {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.EpisodeItem {
+  overflow: hidden;
+
+
+  display: block;
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  text-decoration: none;
+  color: #eee;
+  font-size: 0.8em;
+
+  padding: 10px 10px 10px 50px;
+
+  background-color: #323232;
+
+  &:nth-child(2n+1) {
+    background-color: #393939;
+  }
+
+  &:hover {
+    background-color: #23232c;
+    color: #eee
+  }
+
+  // A simple square block.
+  &:before {
+    content: "";
+
+    display: block;
+    position: absolute;
+
+    width: 28px;
+    height: 28px;
+
+    left: 10px;
+    top: 10px;
+
+    background-color: #4d4d4d;
+
+    border-radius: 3px;
+
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+  }
+
+  // A simple triangle block.
+  &:after {
+    content: "";
+
+    display: block;
+    position: absolute;
+
+    left: 20px;
+    top: 18px;
+
+    width: 0;
+    height: 0;
+
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent #c8cbcd;
+  }
+
+  &.play:after {
+    content: "";
+
+    display: block;
+    position: absolute;
+
+    left: 20px;
+    top: 13px;
+
+    width: 3px;
+    height: 11px;
+
+    border: none #c8cbcd;
+    border-right: 3px solid;
+    border-left: 3px solid;
+  }
+}
+
+.EpisodeItem-category {
+  display: block;
+
+  color: #5c5c5c;
+}

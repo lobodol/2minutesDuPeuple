@@ -1,0 +1,41 @@
+/**
+ * RESONSIVE
+ */
+
+@mixin desktop {
+  @media (max-width: #{$page-width - 1}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: #{$desktop-width + 19}) {
+    @content;
+  }
+}
+
+@mixin phone {
+  @media (max-width: #{$tablet-width + 19}) {
+    @content;
+  }
+}
+
+/**
+ * LARGEUR SITE
+ */
+
+@mixin width-site {
+  width: $page-width;
+
+  @include desktop {
+    width: $desktop-width;
+  }
+
+  @include tablet {
+    width: $tablet-width;
+  }
+
+  @include phone {
+    width: $phone-width;
+  }
+}
