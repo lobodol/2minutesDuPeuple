@@ -158,6 +158,7 @@ var Player = {
 
         // Update page's title.
         $('title').html(pageTitle);
+        $('#Player-currentEpisode').html(pageTitle);
     },
 
     /**
