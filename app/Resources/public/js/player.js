@@ -46,6 +46,23 @@ var Player = {
     },
 
     /**
+     * Play an episode identified by its data-nb.
+     *
+     * @param {Number} nb
+     */
+    playEpisodeNb: function(nb) {
+        // Find episode in playlist.
+        var index = Player.playlist.indexOf(nb);
+
+        if (index != -1) {
+            var episode = $('.EpisodeItem[data-nb=' + nb + ']');
+
+            // And play it.
+            Player._playEpisode(episode);
+        }
+    },
+
+    /**
      * Initialize audio player object.
      * TODO: auto play episode when using anchor (share link).
      *
