@@ -93,6 +93,26 @@ var Player = {
                 Player._nextTrack();
             }
         });
+
+        // Listener for pause.
+        Player.player.addEventListener('pause', function() {
+            if ($('#PlayerControls-playpause').hasClass('pause')) {
+                $('#PlayerControls-playpause').removeClass('pause').addClass('play');
+            }
+
+        });
+
+        // Listener for play.
+        Player.player.addEventListener('play', function() {
+            if ($('#PlayerControls-playpause').hasClass('play')) {
+                $('#PlayerControls-playpause').removeClass('play').addClass('pause');
+            }
+        });
+
+        // Listener for errors.
+        Player.player.addEventListener('error', function() {
+            Modal.open('Ukulele ma guitare ? Impossible de lire cet épisode...');
+        });
     },
 
     /**
@@ -119,10 +139,6 @@ var Player = {
      * @private
      */
     _playEpisode: function (episode) {
-        if ($('#PlayerControls-playpause').hasClass('play')) {
-            $('#PlayerControls-playpause').removeClass('play').addClass('pause');
-        }
-
         $('.EpisodeItem').removeClass('active');
         $(episode).addClass('active');
 
@@ -170,39 +186,27 @@ var Player = {
         // Play/Pause.
         $('#PlayerControls-playpause').click(function() {
             if (Player.player.paused) {
-                $(this).removeClass().addClass('pause');
-
                 Player.player.play();
             } else {
-                $(this).removeClass().addClass('play');
-
                 Player.player.pause();
             }
         });
 
         // Previous Track.
         $('#PlayerControls-prev').click(function() {
-            if ($('#PlayerControls-playpause').hasClass('play')) {
-                $('#PlayerControls-playpause').removeClass().addClass('pause');
-            }
-
             Player._previousTrack();
         });
 
         // Next Track.
         $('#PlayerControls-next').click(function() {
-            if ($('#PlayerControls-playpause').hasClass('play')) {
-                $('#PlayerControls-playpause').removeClass().addClass('pause');
-            }
-
             Player._nextTrack();
         });
 
         // Enable/disable shuffleMode mode.
         $('#PlayerControls-shuffleMode').click(function() {
-            $(this).toggleClass('random');
+            $(this).toggleClass('shuffle');
 
-            if ($(this).hasClass('random')) {
+            if ($(this).hasClass('shuffle')) {
                 Player.playlist = shuffle(Player.playlist);
             } else {
                 Player._initPlaylist();
