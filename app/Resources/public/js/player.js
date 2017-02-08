@@ -230,7 +230,7 @@ var Player = {
             var position = e.pageX - offset.left;
             var percent  = (position / $(this).width());
 
-            Player.player.currentTime = Math.floor(percent * duration);
+            Player.player.currentTime = Math.floor(percent * Player.player.duration);
         });
 
         // Directly click on an episode.
