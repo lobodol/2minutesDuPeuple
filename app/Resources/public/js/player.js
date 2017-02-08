@@ -203,7 +203,7 @@ var Player = {
         });
 
         // Enable/disable shuffleMode mode.
-        $('#PlayerControls-shuffleMode').click(function() {
+        $('#PlayerControls-shuffle').click(function() {
             $(this).toggleClass('shuffle');
 
             if ($(this).hasClass('shuffle')) {
