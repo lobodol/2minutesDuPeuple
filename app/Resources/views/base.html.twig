@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <meta name="description" content="Les 2 minutes du peuple">
+        <meta name="keywords" content="peuple,urgences,columbo,slangster,jacques cartier">
 
-        <title>{% block title %}Le player du peuple{% endblock %}</title>
+        <title>{% block title %}Les 2 minutes du peuple{% endblock %}</title>
 
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
@@ -12,10 +14,20 @@
         {% endblock %}
 
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        {# Icon in the highest resolution we need it for #}
+        <link rel="icon" sizes="192x192" href="{{ asset('favicon.ico') }}">
+        {# Reuse same icon for Safari #}
+        <link rel="apple-touch-icon" href="{{ asset('favicon.ico') }}">
+        {# Multiple icons for IE #}
+        <meta name="msapplication-square310x310logo" content="{{ asset('favicon.ico') }}">
     </head>
     <body>
-        <header>
-            {% block header %}{% endblock %}
+        <header id="Header">
+            {% block header %}
+                <h1 id="logo">Les 2 minutes du peuple</h1>
+
+                <input type="text" id="searchField">
+            {% endblock %}
         </header>
 
         {% block body %}{% endblock %}
