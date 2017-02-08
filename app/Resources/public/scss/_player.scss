@@ -24,8 +24,81 @@
 #Player-currentEpisode {
   display: none;
 
-  color: #eee;
+  color: $light-grey;
   font-size: 0.9em;
+}
+
+// Timing wrapper.
+#Player-progressBar {
+  position: relative;
+
+  width: 65%;
+  height: 7px;
+
+  color: white;
+
+  background-color: #39393a;
+
+  margin: 10px auto auto;
+
+  cursor: pointer;
+}
+
+#Player-duration {
+  position: relative;
+
+  height: 100%;
+  width: 0;
+
+  background-color: $orange;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+
+    right: -12px;
+    top: -3px;
+
+    width: 13px;
+    height: 13px;
+
+    border-radius: 50%;
+
+    background-color: #c8cbcd;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+
+    right: -8px;
+    top: 1px;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background-color: #aaa;
+  }
+}
+
+#Player-currentTime {
+  position: absolute;
+  top: -8px;
+  left: -45px;
+
+  text-align: right;
+}
+
+#Player-maxTime {
+  position: absolute;
+  top: -8px;
+  right: -45px;
+
+  text-align: left;
 }
 
 #PlayerControls > * {
@@ -35,8 +108,10 @@
 
 // Play/Pause button.
 #PlayerControls-playpause {
+  position: absolute;
+
+  top: 38px;
   left: 50%;
-  margin-top: 20px;
 
   &.small {
     left: 100%;
@@ -71,7 +146,7 @@
 
 // Previous button.
 #PlayerControls-prev {
-  position: relative;
+  position: absolute;
 
   left: 25%;
   top: 52px;
@@ -96,7 +171,7 @@
 
     border-style: solid;
     border-width: 15px 26px 15px 0;
-    border-color: transparent #eee transparent transparent;
+    border-color: transparent $light-grey transparent transparent;
   }
 
   // Vertical rectangle.
@@ -111,7 +186,7 @@
 
     left: 0;
 
-    background-color: #eee;
+    background-color: $light-grey;
   }
 }
 
@@ -119,7 +194,6 @@
 #PlayerControls-next {
   left: 75%;
   top: 52px;
-  margin-left: -26px;
 
   width: 29px;
   height: 35px;
@@ -137,7 +211,7 @@
 
     border-style: solid;
     border-width: 15px 0 15px 26px;
-    border-color: transparent transparent transparent #eee;
+    border-color: transparent transparent transparent $light-grey;
   }
 
   // Vertical rectangle.
@@ -152,7 +226,7 @@
 
     right: 0;
 
-    background-color: #eee;
+    background-color: $light-grey;
   }
 }
 
