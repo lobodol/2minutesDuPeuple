@@ -27,6 +27,8 @@
 
   background-color: #323232;
 
+  cursor: pointer;
+
   &.active {
     background-color: $orange !important;
 
