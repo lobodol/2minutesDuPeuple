@@ -13,3 +13,19 @@
 
   background-color: white;
 }
+
+#SearchField {
+  position: absolute;
+  top: 7px;
+  left: 50%;
+
+  height: 36px;
+  line-height: 40px;
+
+  padding: 10px 20px;
+
+  border: none;
+  border-radius: 20px;
+
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
