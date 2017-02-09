@@ -1,17 +1,21 @@
 #ResultWrapper {
-  position: absolute;
+  position: fixed;
   z-index: 9;
 
   top: 0;
   left: 100%;
 
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+
+  overflow: scroll;
 
   background: white;
 
   // Height of the header.
   margin-top: 50px;
+  // Height of the player.
+  padding-bottom: 50px;
 
   transition: left 0.5s ease-in-out;
 
@@ -27,17 +31,31 @@
   padding: 0;
 
   list-style: none;
-}
 
-.ResultItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  .ResultItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-  border-bottom: solid 1px silver;
+    height: 90px;
 
-  .highlight {
-    color: $orange !important;
+    padding: 10px 20px;
+
+    border-bottom: solid 1px silver;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: $light-grey;
+    }
+
+    &:last-child {
+      border: none;
+    }
+
+    .highlight {
+      color: $orange !important;
+    }
   }
 }
 
