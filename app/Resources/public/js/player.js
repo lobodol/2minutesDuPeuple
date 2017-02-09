@@ -63,6 +63,22 @@ var Player = {
     },
 
     /**
+     * Reduce the player to its small size.
+     */
+    reduce: function() {
+        if (!$('#Player').hasClass('small')) {
+            $('#Player').addClass('small');
+        }
+    },
+
+    /**
+     * Expend player to its original size.
+     */
+    expend: function() {
+        $('#Player').removeClass('small');
+    },
+
+    /**
      * Initialize audio player object.
      * TODO: auto play episode when using anchor (share link).
      *
