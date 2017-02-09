@@ -24,18 +24,21 @@ var SearchEngine = {
         SearchEngine.searchField.keyup(function (event) {
             // Escape button
             if (event.which == 27) {
+                Player.expend();
                 // Hide result without clearing result list.
-                return SearchEngine._hideResults(false);
+                return SearchEngine.hideResults(false);
             }
 
             var fulltext = $.trim($(this).val());
 
             if (fulltext == "") {
-                return SearchEngine._hideResults(true);
+                Player.expend();
+                return SearchEngine.hideResults(true);
             }
 
             // If user typed enough chars and search terms are different from the last search.
             if (fulltext.length > 3 && fulltext != SearchEngine.lastSearch) {
+                Player.reduce();
                 SearchEngine.lastSearch = fulltext;
                 SearchEngine._apiCall(fulltext);
             }
@@ -44,14 +47,39 @@ var SearchEngine = {
 
         // When search field loses focus.
         SearchEngine.searchField.focusout(function() {
+            Player.expend();
+
             // Hide result without clearing result list.
-            SearchEngine._hideResults(false);
+            SearchEngine.hideResults(false);
         });
 
         // Display last search's results when sibling search field.
         SearchEngine.searchField.focusin(function() {
-           SearchEngine._showResults();
+            Player.reduce();
+            SearchEngine.showResults();
         });
+    },
+
+    /**
+     * Hide result wrapper.
+     *
+     * @param {boolean} clearContent : clear results if TRUE (optional).
+     */
+    hideResults: function (clearContent) {
+        var wrapper = $('#ResultWrapper');
+
+        wrapper.removeClass('opened');
+
+        if (typeof clearContent == 'boolean' && clearContent == true) {
+            wrapper.html('');
+        }
+    },
+
+    /**
+     * Show result wrapper.
+     */
+    showResults: function () {
+        $('#ResultWrapper').addClass('opened');
     },
 
     /**
@@ -215,29 +243,4 @@ var SearchEngine = {
 
         return highlight;
     },
-
-    /**
-     * Hide result wrapper.
-     *
-     * @param {boolean} clearContent : clear results if TRUE (optional).
-     * @private
-     */
-    _hideResults: function (clearContent) {
-        var wrapper = $('#ResultWrapper');
-
-        wrapper.removeClass('opened');
-
-        if (typeof clearContent == 'boolean' && clearContent == true) {
-            wrapper.html('');
-        }
-    },
-
-    /**
-     * Show result wrapper.
-     *
-     * @private
-     */
-    _showResults: function () {
-        $('#ResultWrapper').addClass('opened');
-    }
 };
