@@ -1,0 +1,47 @@
+#ResultWrapper {
+  position: absolute;
+  z-index: 9;
+
+  top: 0;
+  left: 100%;
+
+  width: 100%;
+  min-height: 100%;
+
+  background: white;
+
+  // Height of the header.
+  margin-top: 50px;
+
+  transition: left 0.5s ease-in-out;
+
+  &.opened {
+    left: 0;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+}
+
+#ResultList {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.ResultItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  border-bottom: solid 1px silver;
+
+  .highlight {
+    color: $orange !important;
+  }
+}
+
+.ResultItem-keywords {
+  font-style: italic;
+  color: silver;
+}
