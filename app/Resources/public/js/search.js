@@ -18,7 +18,11 @@ var SearchEngine = {
      * Initialize event listeners.
      */
     init: function () {
-        SearchEngine.searchField = $('#searchField');
+        SearchEngine.searchField = $('#SearchField');
+
+        $('#SearchButton').click(function() {
+            SearchEngine.searchField.focus();
+        });
 
         // When typing something in search field.
         SearchEngine.searchField.keyup(function (event) {
