@@ -3,320 +3,357 @@
  */
 var Player = {
 
-    /**
-     * Instance of the HTML5 player object.
-     *
-     * @type {Object}
-     */
-    player: null,
+  /**
+   * Instance of the HTML5 player object.
+   *
+   * @type {Object}
+   */
+  player: null,
 
-    /**
-     * List of episode numbers. Episodes are played in that order.
-     */
-    playlist: [],
+  /**
+   * List of episode numbers. Episodes are played in that order.
+   *
+   * @type {Array}
+   */
+  playlist: [],
 
-    /**
-     * Loop mode : TRUE if activated, FALSE otherwise.
-     *
-     * @type {boolean}
-     */
-    loop: true,
+  /**
+   * Loop mode : TRUE if activated, FALSE otherwise.
+   *
+   * @type {boolean}
+   */
+  loop: true,
 
-    /**
-     * A DOM object representing the current episode.
-     *
-     * @type {Object}
-     */
-    current: null,
+  /**
+   * A DOM object representing the current episode.
+   *
+   * @type {Object}
+   */
+  current: null,
 
-    /**
-     * If TRUE, play automatically next episode when current is ended.
-     *
-     * @type {boolean}
-     */
-    autoplay: true,
+  /**
+   * If TRUE, play automatically next episode when current is ended.
+   *
+   * @type {boolean}
+   */
+  autoplay: true,
 
-    /**
-     * Initialize player.
-     */
-    init: function () {
-        Player._initPlaylist();
-        Player._initAudioPlayer();
-        Player._initControls();
-    },
+  /**
+   * Initialize player.
+   */
+  init: function () {
+    Player._initPlaylist();
+    Player._initAudioPlayer();
+    Player._initControls();
+  },
 
-    /**
-     * Play an episode identified by its data-nb.
-     *
-     * @param {Number} nb
-     */
-    playEpisodeNb: function(nb) {
-        // Find episode in playlist.
-        var index = Player.playlist.indexOf(nb);
+  /**
+   * Play an episode identified by its data-nb.
+   *
+   * @param {Number} nb
+   */
+  playEpisodeNb: function (nb) {
+    // Find episode in playlist.
+    var index = Player.playlist.indexOf(nb);
 
-        if (index != -1) {
-            var episode = $('.EpisodeItem[data-nb=' + nb + ']');
+    if (index != -1) {
+      var $episode = $('.EpisodeItem[data-nb=' + nb + ']');
 
-            // And play it.
-            Player._playEpisode(episode);
-        }
-    },
+      // And play it.
+      Player._playEpisode($episode);
+    }
+  },
 
-    /**
-     * Reduce the player to its small size.
-     */
-    reduce: function() {
-        if (!$('#Player').hasClass('small')) {
-            $('#Player').addClass('small');
-        }
-    },
+  /**
+   * Reduce the player to its small size.
+   */
+  reduce: function () {
+    if (!$('#Player').hasClass('small')) {
+      $('#Player').addClass('small');
+    }
+  },
 
-    /**
-     * Expend player to its original size.
-     */
-    expend: function() {
-        $('#Player').removeClass('small');
-    },
+  /**
+   * Expend player to its original size.
+   */
+  expend: function () {
+    $('#Player').removeClass('small');
+  },
 
-    /**
-     * Initialize audio player object.
-     * TODO: auto play episode when using anchor (share link).
-     *
-     * @private
-     */
-    _initAudioPlayer: function () {
-        // By default, load first episode.
-        Player.current = $('.EpisodeItem').first();
-        Player.player = new Audio(Player.current.attr('data-mp3'));
+  /**
+   * Initialize audio player object.
+   *
+   * @private
+   */
+  _initAudioPlayer: function () {
+    Player._loadFirstEpisode();
 
-        // Listeners for progress bar and timing.
-        Player.player.addEventListener('loadedmetadata', function () {
-            $('#Player-maxTime').text(Player._timeToString(Player.player.duration));
-        });
+    Player.player = new Audio(Player.current.attr('data-mp3'));
 
-        // Each time duration is updated, update progress bar and timing.
-        Player.player.addEventListener('timeupdate', function () {
-            // Convert duration time to percent.
-            var percent = Math.round((Player.player.currentTime / Player.player.duration) * 100);
+    // Listeners for progress bar and timing.
+    Player.player.addEventListener('loadedmetadata', function () {
+      $('#Player-maxTime').text(Player._timeToString(Player.player.duration));
+    });
 
-            $('#Player-duration').css('width', percent + "%");
-            $('#Player-currentTime').text(Player._timeToString(Player.player.currentTime));
-        }, false);
+    // Each time duration is updated, update progress bar and timing.
+    Player.player.addEventListener('timeupdate', function () {
+      // Convert duration time to percent.
+      var percent = Math.round((Player.player.currentTime / Player.player.duration) * 100);
 
-        // Listener for autoplay.
-        Player.player.addEventListener('ended', function () {
-            if (Player.autoplay) {
-                Player._nextTrack();
-            }
-        });
+      $('#Player-duration').css('width', percent + '%');
+      $('#Player-currentTime').text(Player._timeToString(Player.player.currentTime));
+    }, false);
 
-        // Listener for pause.
-        Player.player.addEventListener('pause', function() {
-            if ($('#PlayerControls-playpause').hasClass('pause')) {
-                $('#PlayerControls-playpause').removeClass('pause').addClass('play');
-            }
+    // Listener for autoplay.
+    Player.player.addEventListener('ended', function () {
+      if (Player.autoplay) {
+        Player._nextTrack();
+      }
+    });
 
-        });
+    // Listener for pause.
+    Player.player.addEventListener('pause', function () {
+      if ($('#PlayerControls-playpause').hasClass('pause')) {
+        $('#PlayerControls-playpause').removeClass('pause').addClass('play');
+      }
 
-        // Listener for play.
-        Player.player.addEventListener('play', function() {
-            if ($('#PlayerControls-playpause').hasClass('play')) {
-                $('#PlayerControls-playpause').removeClass('play').addClass('pause');
-            }
-        });
+    });
 
-        // Listener for errors.
-        Player.player.addEventListener('error', function() {
-            Modal.open('Ukulele ma guitare ? Impossible de lire cet épisode...');
-        });
-    },
+    // Listener for play.
+    Player.player.addEventListener('play', function () {
+      if ($('#PlayerControls-playpause').hasClass('play')) {
+        $('#PlayerControls-playpause').removeClass('play').addClass('pause');
+      }
+    });
 
-    /**
-     * Initialize playlist.
-     *
-     * @private
-     */
-    _initPlaylist: function() {
-        Player.playlist = [];
+    // Listener for errors.
+    Player.player.addEventListener('error', function () {
+      Modal.open('Ukulele ma guitare ? Impossible de lire cet épisode...');
+    });
+  },
 
-        $('.EpisodeItem').each(function (index, item) {
-            var nb = $(item).attr('data-nb');
+  /**
+   * Try to get episode from URL (using anchor). Get the first in the playlist otherwise.
+   *
+   * @private
+   */
+  _loadFirstEpisode: function () {
+    var url = window.location.href;
 
-            if (typeof nb != 'undefined') {
-                Player.playlist.push(nb);
-            }
-        })
-    },
+    // Extract episode number from URL.
+    var nb = url.substr(url.indexOf('#') + 1);
 
-    /**
-     * Play the given episode.
-     *
-     * @param {Object} episode : a DOM object representing an episode.
-     * @private
-     */
-    _playEpisode: function (episode) {
-        $('.EpisodeItem').removeClass('active');
-        $(episode).addClass('active');
+    // Try to find the matching episode.
+    var $episode = $('.EpisodeItem[data-nb="' + nb + '"]');
 
-        Player._updatePageTitle(episode);
-
-        Player.player.src = $(episode).attr('data-mp3');
-        Player.player.load();
-        Player.player.play();
-        Player.current = episode;
-
-        // If new episode is not in the visible area, scroll to it.
-        if (!isScrolledIntoView(episode)) {
-            var scrollValue = $(episode).offset().top - 100;
-
-            $('html, body').animate({
-                scrollTop: scrollValue + "px"
-            }, 200);
-        }
-    },
-
-    /**
-     * Extract information from current episode and update page's title.
-     *
-     * @param {Object} episode : the episode object.
-     * @private
-     */
-    _updatePageTitle: function(episode) {
-        var pageTitle = $(episode).children('.EpisodeItem-title').html();
-
-        if ($(episode).children('.EpisodeItem-category').length) {
-            pageTitle += ' - ' + $(episode).children('.EpisodeItem-category').html();
-        }
-
-        // Update page's title.
-        $('title').html(pageTitle);
-        $('#Player-currentEpisode').html(pageTitle);
-    },
-
-    /**
-     * Initialize player's controls.
-     *
-     * @private
-     */
-    _initControls: function () {
-        // Play/Pause.
-        $('#PlayerControls-playpause').click(function() {
-            if (Player.player.paused) {
-                Player.player.play();
-            } else {
-                Player.player.pause();
-            }
-        });
-
-        // Previous Track.
-        $('#PlayerControls-prev').click(function() {
-            Player._previousTrack();
-        });
-
-        // Next Track.
-        $('#PlayerControls-next').click(function() {
-            Player._nextTrack();
-        });
-
-        // Enable/disable shuffleMode mode.
-        $('#PlayerControls-shuffle').click(function() {
-            $(this).toggleClass('shuffle');
-
-            if ($(this).hasClass('shuffle')) {
-                Player.playlist = shuffle(Player.playlist);
-            } else {
-                Player._initPlaylist();
-            }
-        });
-
-        // Enable/disable loop mode.
-        $('#PlayerControls-loop').click(function() {
-            Player.loop = !Player.loop;
-
-            $(this).removeClass();
-
-            if (Player.loop) {
-                $(this).addClass("loop");
-            }
-        });
-
-        // Jump to time.
-        $('#Player-progressBar').click(function(e) {
-            var offset   = $(this).offset();
-            var position = e.pageX - offset.left;
-            var percent  = (position / $(this).width());
-
-            Player.player.currentTime = Math.floor(percent * Player.player.duration);
-        });
-
-        // Directly click on an episode.
-        $('.EpisodeItem').click(function() {
-            Player._playEpisode($(this));
-        });
-    },
-
-    /**
-     * Format a duration in seconds into a string like xx:yy.
-     *
-     * @param {Number} time : a duration in seconds.
-     * @returns {string}
-     * @private
-     */
-    _timeToString: function (time) {
-        if (isNaN(time)) {
-            return '';
-        }
-
-        var minutes = Math.floor(time / 60);
-        var seconds = Math.floor(time - minutes * 60);
-
-        seconds = (seconds.toString().length <= 1) ? "0" + seconds : seconds;
-
-        return minutes + ":" + seconds;
-    },
-
-    /**
-     * Find the net episode and play it.
-     *
-     * @private
-     */
-    _nextTrack: function () {
-        // Find current episode in playlist.
-        var index = Player.playlist.indexOf(Player.current.attr('data-nb'));
-
-        // By default, get the first episode of the playlist.
-        var nb = Player.playlist[0];
-
-        if (index != -1 && typeof Player.playlist[index+1] != 'undefined') {
-            nb = Player.playlist[index+1];
-        }
-
-        var next = $('.EpisodeItem[data-nb=' + nb + ']');
-
-        // And play it.
-        Player._playEpisode(next);
-    },
-
-    /**
-     * Find the previous episode and play it.
-     *
-     * @private
-     */
-    _previousTrack: function () {
-        // Find current episode in playlist.
-        var index = Player.playlist.indexOf(Player.current.attr('data-nb'));
-
-        // By default, get the last episode of the playlist.
-        var nb = Player.playlist[Player.playlist.length - 1];
-
-        if (index != -1 && typeof Player.playlist[index-1] != 'undefined') {
-            nb = Player.playlist[index-1];
-        }
-
-        var prev = $('.EpisodeItem[data-nb=' + nb + ']');
-
-        // And play it.
-        Player._playEpisode(prev);
+    // If episode exists.
+    if (nb && $episode.length == 1) {
+      // Load it.
+      Player.current = $episode;
+    } else {
+      // By default, load first episode of the playlist.
+      Player.current = $('.EpisodeItem').first();
     }
 
+    Player.current.addClass('active');
+    Player._scrollToEpisode(Player.current);
+  },
+
+  /**
+   * Initialize playlist.
+   *
+   * @private
+   */
+  _initPlaylist: function () {
+    Player.playlist = [];
+
+    $('.EpisodeItem').each(function (index, item) {
+      var nb = $(item).attr('data-nb');
+
+      if (typeof nb != 'undefined') {
+        Player.playlist.push(nb);
+      }
+    });
+  },
+
+  /**
+   * Play the given episode.
+   *
+   * @param {Object} episode : a DOM object representing an episode.
+   * @private
+   */
+  _playEpisode: function (episode) {
+    $('.EpisodeItem').removeClass('active');
+    $(episode).addClass('active');
+
+    Player._updatePageTitle(episode);
+
+    Player.player.src = $(episode).attr('data-mp3');
+    Player.player.load();
+    Player.player.play();
+    Player.current = episode;
+
+    Player._scrollToEpisode(episode);
+  },
+
+  /**
+   * Scroll to an episode if is not in the visible area.
+   *
+   * @param {Object} episode : the episode to scroll to.
+   * @private
+   */
+  _scrollToEpisode: function (episode) {
+    // If new episode is not in the visible area, scroll to it.
+    if (!isScrolledIntoView(episode)) {
+      var scrollValue = $(episode).offset().top - 100;
+
+      $('html, body').animate({
+        scrollTop: scrollValue + 'px',
+      }, 200);
+    }
+  },
+
+  /**
+   * Extract information from current episode and update page's title.
+   *
+   * @param {Object} episode : the episode object.
+   * @private
+   */
+  _updatePageTitle: function (episode) {
+    var pageTitle = $(episode).children('.EpisodeItem-title').html();
+
+    if ($(episode).children('.EpisodeItem-category').length) {
+      pageTitle += ' - ' + $(episode).children('.EpisodeItem-category').html();
+    }
+
+    // Update page's title.
+    $('title').html(pageTitle);
+    $('#Player-currentEpisode').html(pageTitle);
+  },
+
+  /**
+   * Initialize player's controls.
+   *
+   * @private
+   */
+  _initControls: function () {
+    // Play/Pause.
+    $('#PlayerControls-playpause').click(function () {
+      if (Player.player.paused) {
+        Player.player.play();
+      } else {
+        Player.player.pause();
+      }
+    });
+
+    // Previous Track.
+    $('#PlayerControls-prev').click(function () {
+      Player._previousTrack();
+    });
+
+    // Next Track.
+    $('#PlayerControls-next').click(function () {
+      Player._nextTrack();
+    });
+
+    // Enable/disable shuffleMode mode.
+    $('#PlayerControls-shuffle').click(function () {
+      $(this).toggleClass('shuffle');
+
+      if ($(this).hasClass('shuffle')) {
+        Player.playlist = shuffle(Player.playlist);
+      } else {
+        Player._initPlaylist();
+      }
+    });
+
+    // Enable/disable loop mode.
+    $('#PlayerControls-loop').click(function () {
+      Player.loop = !Player.loop;
+
+      $(this).removeClass();
+
+      if (Player.loop) {
+        $(this).addClass('loop');
+      }
+    });
+
+    // Jump to time.
+    $('#Player-progressBar').click(function (e) {
+      var offset = $(this).offset();
+      var position = e.pageX - offset.left;
+      var percent = (position / $(this).width());
+
+      Player.player.currentTime = Math.floor(percent * Player.player.duration);
+    });
+
+    // Directly click on an episode.
+    $('.EpisodeItem').click(function () {
+      Player._playEpisode($(this));
+    });
+  },
+
+  /**
+   * Format a duration in seconds into a string like xx:yy.
+   *
+   * @param {Number} time : a duration in seconds.
+   * @returns {string}
+   * @private
+   */
+  _timeToString: function (time) {
+    if (isNaN(time)) {
+      return '';
+    }
+
+    var minutes = Math.floor(time / 60);
+    var seconds = Math.floor(time - minutes * 60);
+
+    seconds = (seconds.toString().length <= 1) ? '0' + seconds : seconds;
+
+    return minutes + ':' + seconds;
+  },
+
+  /**
+   * Find the net episode and play it.
+   *
+   * @private
+   */
+  _nextTrack: function () {
+    // Find current episode in playlist.
+    var index = Player.playlist.indexOf(Player.current.attr('data-nb'));
+
+    // By default, get the first episode of the playlist.
+    var nb = Player.playlist[0];
+
+    if (index != -1 && typeof Player.playlist[index + 1] != 'undefined') {
+      nb = Player.playlist[index + 1];
+    }
+
+    var $next = $('.EpisodeItem[data-nb=' + nb + ']');
+
+    // And play it.
+    Player._playEpisode($next);
+  },
+
+  /**
+   * Find the previous episode and play it.
+   *
+   * @private
+   */
+  _previousTrack: function () {
+    // Find current episode in playlist.
+    var index = Player.playlist.indexOf(Player.current.attr('data-nb'));
+
+    // By default, get the last episode of the playlist.
+    var nb = Player.playlist[Player.playlist.length - 1];
+
+    if (index != -1 && typeof Player.playlist[index - 1] != 'undefined') {
+      nb = Player.playlist[index - 1];
+    }
+
+    var $prev = $('.EpisodeItem[data-nb=' + nb + ']');
+
+    // And play it.
+    Player._playEpisode($prev);
+  },
 };
