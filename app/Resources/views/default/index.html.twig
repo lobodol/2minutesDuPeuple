@@ -4,14 +4,7 @@
     <div id="PlayerWrapper">
         <ul id="PlayList">
             {% for episode in episodes %}
-                {# Set first episode active by default #}
-                {% if loop.first %}
-                    {% set class = 'EpisodeItem active' %}
-                {% else %}
-                    {% set class = 'EpisodeItem' %}
-                {% endif %}
-
-                <li class="{{ class }}" data-nb="{{ episode.number }}" data-mp3="{{ episode.mp3 }}">
+                <li class="EpisodeItem" data-nb="{{ episode.number }}" data-mp3="{{ episode.mp3 }}">
                     <span class="EpisodeItem-title">{{ episode.title }}</span>
 
                     {% if episode.category is not empty %}
