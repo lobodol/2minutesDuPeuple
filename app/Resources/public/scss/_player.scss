@@ -1,3 +1,13 @@
+#PlayerWrapper {
+  position: relative;
+
+  @include desktop {
+    width: 500px;
+
+    margin: auto;
+  }
+}
+
 #Player {
   position: fixed;
   z-index: 10;
@@ -9,16 +19,37 @@
 
   background-color: #2b2b2b;
 
+  @include desktop {
+    width: 500px;
+  }
+
+  // Simplify player.
   &.small {
     height: 60px;
 
     #PlayerControls-prev,
-    #PlayerControls-next {
+    #PlayerControls-next,
+    #Player-maxTime,
+    #Player-currentTime {
       display: none;
+    }
+
+    #PlayerControls-playpause {
+      transform: scale(0.5);
+
+      top: 5px;
+      left: 100%;
+
+      margin-left: -50px;
     }
 
     #Player-currentEpisode {
       display: block;
+    }
+
+    #Player-progressBar {
+      width: 100%;
+      margin: 0;
     }
   }
 }
@@ -44,6 +75,14 @@
   margin: 10px auto auto;
 
   cursor: pointer;
+
+  @include desktop {
+    width: 100%;
+
+    margin: 0;
+
+    background-color: #232324;
+  }
 }
 
 #Player-duration {
@@ -85,22 +124,51 @@
 
     background-color: #aaa;
   }
+
+  @include desktop {
+    &:before,
+    &:after {
+      display: none;
+    }
+  }
 }
 
+// Value of the current time.
 #Player-currentTime {
   position: absolute;
   top: -8px;
   left: -45px;
 
   text-align: right;
+
+  @include desktop {
+    top: -22px;
+    left: 0;
+
+
+    padding: 0 4px;
+
+    background-color: rgba(0, 0, 0, 0.25);
+  }
 }
 
+// Value of the episode's duration.
 #Player-maxTime {
   position: absolute;
   top: -8px;
   right: -45px;
 
   text-align: left;
+
+  @include desktop {
+    top: -22px;
+    right: 0;
+
+
+    padding: 0 3px;
+
+    background-color: rgba(0, 0, 0, 0.25);
+  }
 }
 
 #PlayerControls > * {

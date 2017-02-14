@@ -5,6 +5,10 @@
   list-style: none;
 
   background-color: #393939;
+
+  @include desktop {
+    margin-top: 60px;
+  }
 }
 
 .EpisodeItem {
