@@ -1,0 +1,28 @@
+{
+  "name": "2minutes",
+  "version": "2.0.0",
+  "description": "Player du peuple",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "mustache": "^2.3.0"
+  },
+  "devDependencies": {
+    "jscs": "^3.0.7"
+  },
+  "scripts": {
+    "test": "watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lobodol/2minutesDuPeuple.git"
+  },
+  "author": "lobodol",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lobodol/2minutesDuPeuple/issues"
+  },
+  "homepage": "https://github.com/lobodol/2minutesDuPeuple#readme"
+}
