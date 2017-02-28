@@ -1,0 +1,25 @@
+#SocialShare {
+  display: none;
+
+  @include desktop {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    margin-top: -50px;
+    margin-left: 350px;
+    padding: 10px 5px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    text-align: center;
+
+    background-color: #2B2B2B;
+
+    border-radius: 30px;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  }
+}
