@@ -1,7 +1,6 @@
 
 /var/
 /vendor/
-/bin/
 /web/bundles/
 /app/config/parameters.yml
 /node_modules/
