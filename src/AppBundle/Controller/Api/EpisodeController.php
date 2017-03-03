@@ -19,6 +19,7 @@ class EpisodeController extends FOSRestController
     /**
      * Get all episode resources.
      *
+     * @Rest\Get("episodes", name="app.api.episodes.get")
      * @Rest\View()
      * @ApiDoc(
      *     resource=true,
@@ -49,9 +50,10 @@ class EpisodeController extends FOSRestController
     }
 
     /**
-     * Get an episode resource.
+     * Get an episode resource identified by its ID.
      *
      * @ApiDoc(description="Get a single episode")
+     * @Rest\Get("episodes/{episode}", name="app.api.episode.get_one")
      * @Rest\View()
      *
      * @param Episode $episode : the episode object.
@@ -143,7 +145,7 @@ class EpisodeController extends FOSRestController
      * Update an episode object, partially or fully.
      *
      * @param Episode $episode      : the episode object to update.
-     * @param Request $request      : the current rquest object.
+     * @param Request $request      : the current request object.
      * @param bool    $clearMissing : make a partial update if TRUE, full update otherwise.
      * @return Episode|Form
      */
