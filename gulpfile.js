@@ -7,6 +7,8 @@ var autoprefixer = require('gulp-autoprefixer');
 var spritesmith = require('gulp.spritesmith');
 var runSequence = require('run-sequence');
 var imagemin = require('gulp-imagemin');
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 /**
  * Compile and minify SCSS
@@ -96,10 +98,19 @@ gulp.task('imagemin', function() {
 gulp.task('watch', function() {
   runSequence('build');
   gulp.watch('app/Resources/public/scss/**/*scss', ['sass']);
-  gulp.watch('app/Resources/public/js/*js', ['concat']);
+  gulp.watch('app/Resources/public/js/*js', ['concat', 'jshint']);
   gulp.watch('app/Resources/public/images/sprites/**/*.png', ['sprites']);
   gulp.watch('app/Resources/public/images/*', ['images']);
   gulp.watch('app/Resources/public/js/templates/**/*mst', ['mustache-tpl']);
+});
+
+/**
+ * Check JavaScript sytax with JSHint.
+ */
+gulp.task('jshint', function() {
+  return gulp.src('app/Resources/public/js/*js')
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish));
 });
 
 
