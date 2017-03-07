@@ -30,6 +30,14 @@ gulp.task('concat', function() {
 });
 
 /**
+ * Move Mustache templates into web directory.
+ */
+gulp.task('mustache-tpl', function() {
+  return gulp.src('app/Resources/public/js/templates/**/*.mst')
+    .pipe(gulp.dest('web/js/templates'));
+});
+
+/**
  * Generate sprite and css file from PNGs
  */
 gulp.task('sprites', function() {
@@ -83,7 +91,7 @@ gulp.task('imagemin', function() {
 });
 
 /**
- * Watch task
+ * Watch task.
  */
 gulp.task('watch', function() {
   runSequence('build');
@@ -91,12 +99,13 @@ gulp.task('watch', function() {
   gulp.watch('app/Resources/public/js/*js', ['concat']);
   gulp.watch('app/Resources/public/images/sprites/**/*.png', ['sprites']);
   gulp.watch('app/Resources/public/images/*', ['images']);
+  gulp.watch('app/Resources/public/js/templates/**/*mst', ['mustache-tpl']);
 });
 
 
 /**
- * Build all assets
+ * Build all assets.
  */
 gulp.task('build', function() {
-  runSequence('sass', 'concat', 'sprites', 'images', 'imagemin');
+  runSequence('sass', 'concat', 'mustache-tpl', 'sprites', 'images', 'imagemin');
 });
