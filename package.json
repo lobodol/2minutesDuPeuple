@@ -10,7 +10,8 @@
     "mustache": "^2.3.0"
   },
   "devDependencies": {
-    "jscs": "^3.0.7"
+    "gulp-jshint": "^2.0.4",
+    "jshint-stylish": "^2.2.1"
   },
   "scripts": {
     "test": "watch"
