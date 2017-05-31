@@ -1,4 +1,6 @@
-
+.idea
+app/bootstrap.php.cache
+bin/symfony_requirements
 /var/
 /vendor/
 /web/bundles/
