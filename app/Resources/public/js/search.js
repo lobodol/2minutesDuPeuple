@@ -27,7 +27,7 @@ var SearchEngine = {
         // When typing something in search field.
         SearchEngine.searchField.keyup(function (event) {
             // Escape button
-            if (event.which == 27) {
+            if (event.which === 27) {
                 Player.expend();
                 // Hide result without clearing result list.
                 return SearchEngine.hideResults(false);
@@ -35,13 +35,13 @@ var SearchEngine = {
 
             var fulltext = $.trim($(this).val());
 
-            if (fulltext == "") {
+            if (fulltext === "") {
                 Player.expend();
                 return SearchEngine.hideResults(true);
             }
 
             // If user typed enough chars and search terms are different from the last search.
-            if (fulltext.length > 3 && fulltext != SearchEngine.lastSearch) {
+            if (fulltext.length > 3 && fulltext !== SearchEngine.lastSearch) {
                 Player.reduce();
                 SearchEngine.lastSearch = fulltext;
                 SearchEngine._apiCall(fulltext);
@@ -74,7 +74,7 @@ var SearchEngine = {
 
         wrapper.removeClass('opened');
 
-        if (typeof clearContent == 'boolean' && clearContent == true) {
+        if (typeof clearContent === 'boolean' && clearContent === true) {
             wrapper.html('');
         }
     },
@@ -105,7 +105,7 @@ var SearchEngine = {
         }).done(function (data) {
             SearchEngine._displayResult(data);
         }).fail(function (data) {
-            Modal.open("Désolé, le système à quité inopinément suite à une erreur numéro 72");
+            Modal.open("Désolé, le système à quitté inopinément suite à une erreur numéro 72");
             console.log(data);
         });
     },
@@ -132,7 +132,7 @@ var SearchEngine = {
             }));
 
             // Episode's category.
-            if (typeof episode.category != 'undefined') {
+            if (typeof episode.category !== 'undefined') {
                 item.append($('<span>', {
                     class: 'ResultItem-category',
                     html: SearchEngine._highlightString(episode.category.name),
@@ -140,7 +140,7 @@ var SearchEngine = {
             }
 
             // Episode's keywords.
-            if (episode.keywords != "" && episode.keywords != null) {
+            if (episode.keywords !== "" && episode.keywords !== null) {
                 var highlight = SearchEngine._highlightKeywords(episode.keywords);
 
                 item.append($('<span>', {
@@ -183,7 +183,7 @@ var SearchEngine = {
 
         var index = string.toLowerCase().indexOf(SearchEngine.lastSearch.toLowerCase());
 
-        if (index != -1) {
+        if (index !== -1) {
             // Get possible chars before search terms.
             highlight += string.substr(0, index);
 
@@ -194,7 +194,7 @@ var SearchEngine = {
             highlight += string.substr(index + SearchEngine.lastSearch.length);
         }
 
-        if (highlight == '') {
+        if (highlight === '') {
             return string;
         }
 
@@ -222,7 +222,7 @@ var SearchEngine = {
         var highlight = '';
 
         // Take few chars before and after the fulltext string.
-        if (index != -1) {
+        if (index !== -1) {
             var rest = totalLength - charsBefore - SearchEngine.lastSearch.length;
 
             if (rest < 0) {
@@ -246,5 +246,5 @@ var SearchEngine = {
         }
 
         return highlight;
-    },
+    }
 };
