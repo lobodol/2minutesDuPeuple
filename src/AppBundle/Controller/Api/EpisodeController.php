@@ -21,32 +21,37 @@ class EpisodeController extends FOSRestController
      *
      * @Rest\Get("episodes", name="app.api.episodes.get")
      * @Rest\View()
+     * @Rest\QueryParam(
+     *     name="order",
+     *     requirements="asc|desc",
+     *     default="asc",
+     *     description="Sort order (asc or desc)"
+     * )
+     * @Rest\QueryParam(
+     *     name="sort",
+     *     requirements="title|category",
+     *     default="title",
+     *     description="Attribute to sort by (title or category)"
+     * )
+     * @Rest\QueryParam(
+     *     name="fulltext",
+     *     description="Fulltext to search for"
+     * )
      * @ApiDoc(
      *     resource=true,
-     *     description="Get list of all episodes",
-     *     filters={
-     *         {"name"="sort", "dataType"="string", "values"={"title", "category"}},
-     *         {"name"="order", "dataType"="string", "values"={"ASC", "DESC"}},
-     *         {"name"="fulltext", "dataType"="string", "description"="A fulltext filter to find any episode"},
-     *     }
+     *     description="Get list of all episodes"
      * )
      *
-     * @param Request $request : the current request object.
-     * @return array
+     * @param string $order
+     * @param string $sort
+     * @param string $fulltext
+     * @return Episode[]
      */
-    public function getEpisodesAction(Request $request)
+    public function getEpisodesAction($order, $sort, $fulltext)
     {
-        // Get parameters from request.
-        $sort     = $request->get('sort', 'title');
-        $order    = $request->get('order', 'ASC');
-        $fulltext = $request->get('fulltext', '');
-
-        /** @var Episode[] $episodes */
-        $episodes = $this->getDoctrine()
+	    return $this->getDoctrine()
             ->getRepository('AppBundle:Episode')
             ->getEpisodes($sort, $order, $fulltext);
-
-        return $episodes;
     }
 
     /**
