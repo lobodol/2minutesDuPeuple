@@ -43,6 +43,7 @@ var Player = {
    */
   init: function () {
     Player._initPlaylist();
+    Player._initMediaSession();
     Player._initAudioPlayer();
     Player._initControls();
   },
@@ -132,6 +133,29 @@ var Player = {
     });
   },
 
+	/**
+   * Init media notifications for Chrome Android.
+   * This allow to play/pause/prev/next directly in notification
+   *
+	 * @private
+	 */
+  _initMediaSession: function() {
+	  if ('mediaSession' in navigator) {
+		  navigator.mediaSession.metadata = new MediaMetadata({
+			  title: null,
+			  album: null,
+			  artwork: [
+				  { src: 'https://dummyimage.com/512x512', sizes: '512x512', type: 'image/png' }
+			  ]
+		  });
+
+		  navigator.mediaSession.setActionHandler('play', function() { Player.player.play(); });
+		  navigator.mediaSession.setActionHandler('pause', function() { Player.player.pause(); });
+		  navigator.mediaSession.setActionHandler('previoustrack', Player._previousTrack);
+		  navigator.mediaSession.setActionHandler('nexttrack', Player._nextTrack);
+	  }
+  },
+
   /**
    * Try to get episode from URL (using anchor). Get the first in the playlist otherwise.
    *
@@ -157,6 +181,7 @@ var Player = {
 
     Player.current.addClass('active');
     Player._scrollToEpisode(Player.current);
+    Player._updatePageTitle(Player.current);
   },
 
   /**
@@ -220,15 +245,23 @@ var Player = {
    * @private
    */
   _updatePageTitle: function (episode) {
-    var pageTitle = $(episode).children('.EpisodeItem-title').html();
+    var title    = $(episode).children('.EpisodeItem-title').html();
+    var category = '';
+
 
     if ($(episode).children('.EpisodeItem-category').length) {
-      pageTitle += ' - ' + $(episode).children('.EpisodeItem-category').html();
+	    category = $(episode).children('.EpisodeItem-category').html();
     }
 
     // Update page's title.
-    $('title').html(pageTitle);
-    $('#Player-currentEpisode').html(pageTitle);
+    $('title').html(title + (category ? ' - ' + category : ''));
+    $('#Player-currentEpisode').html(title);
+
+    // Update media information for Chrome.
+	  if ('mediaSession' in navigator) {
+		  navigator.mediaSession.metadata.title = title;
+		  navigator.mediaSession.metadata.album = category;
+	  }
   },
 
   /**
