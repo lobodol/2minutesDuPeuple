@@ -56,7 +56,7 @@ var Player = {
     // Find episode in playlist.
     var index = Player.playlist.indexOf(nb);
 
-    if (index != -1) {
+    if (index !== -1) {
       var $episode = $('.EpisodeItem[data-nb=' + nb + ']');
 
       // And play it.
@@ -147,7 +147,7 @@ var Player = {
     var $episode = $('.EpisodeItem[data-nb="' + nb + '"]');
 
     // If episode exists.
-    if (nb && $episode.length == 1) {
+    if (nb && $episode.length === 1) {
       // Load it.
       Player.current = $episode;
     } else {
@@ -170,7 +170,7 @@ var Player = {
     $('.EpisodeItem').each(function (index, item) {
       var nb = $(item).attr('data-nb');
 
-      if (typeof nb != 'undefined') {
+      if (typeof nb !== 'undefined') {
         Player.playlist.push(nb);
       }
     });
@@ -208,7 +208,7 @@ var Player = {
       var scrollValue = $(episode).offset().top - 100;
 
       $('html, body').animate({
-        scrollTop: scrollValue + 'px',
+        scrollTop: scrollValue + 'px'
       }, 200);
     }
   },
@@ -325,7 +325,7 @@ var Player = {
     // By default, get the first episode of the playlist.
     var nb = Player.playlist[0];
 
-    if (index != -1 && typeof Player.playlist[index + 1] != 'undefined') {
+    if (index !== -1 && typeof Player.playlist[index + 1] !== 'undefined') {
       nb = Player.playlist[index + 1];
     }
 
@@ -347,7 +347,7 @@ var Player = {
     // By default, get the last episode of the playlist.
     var nb = Player.playlist[Player.playlist.length - 1];
 
-    if (index != -1 && typeof Player.playlist[index - 1] != 'undefined') {
+    if (index !== -1 && typeof Player.playlist[index - 1] !== 'undefined') {
       nb = Player.playlist[index - 1];
     }
 
@@ -355,5 +355,5 @@ var Player = {
 
     // And play it.
     Player._playEpisode($prev);
-  },
+  }
 };
