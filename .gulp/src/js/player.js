@@ -1,5 +1,5 @@
 // Declaration of global variables
-var player = new Audio('web/mp3/0001.mp3');
+var player = new Audio('web/mp3/0003.mp3');
 var duration;
 var playlist = $('#listEpisodes');
 var episodes = [];
@@ -251,7 +251,50 @@ function init()
 
          player.currentTime = goTo;
     });
+
+    initMediaSession();
 }
+
+/**
+ * Init media notifications for Chrome Android.
+ * This allow to play/pause/prev/next directly in notification
+ */
+function initMediaSession()
+{
+    $episode = $('#listEpisodes .active');
+
+    if ($episode.length === 1) {
+	    var titre   = $episode.find('span:first-child').html();
+	    var details = $episode.find('.details').html();
+    }
+
+		if ('mediaSession' in navigator) {
+			navigator.mediaSession.metadata = new MediaMetadata({
+				title: titre ? titre : '',
+				album: details ? details : ''/*,
+				artwork: [
+					{ src: 'https://dummyimage.com/512x512', sizes: '512x512', type: 'image/png' }
+				]*/
+			});
+
+			navigator.mediaSession.setActionHandler('play', function() {
+				$('#playpause').trigger('click');
+      });
+
+			navigator.mediaSession.setActionHandler('pause', function() {
+				$('#playpause').trigger('click');
+      });
+
+			navigator.mediaSession.setActionHandler('previoustrack', function() {
+			    $('#prev').trigger('click');
+      });
+
+			navigator.mediaSession.setActionHandler('nexttrack', function() {
+				$('#next').trigger('click');
+      });
+		}
+}
+
 /**
  * Return a string mm:ss from a duration in seconds
  *
@@ -357,7 +400,13 @@ function run(link)
     var titre   = $('#'+id+' a span:first-child').html();
     var details = $('#'+id+' a .details').html();
 
-    if (typeof details != "undefined") {
+	  // Update media information for Chrome Android.
+	  if ('mediaSession' in navigator) {
+	  	  navigator.mediaSession.metadata.title = titre;
+	  	  navigator.mediaSession.metadata.album = details ? details : '';
+    }
+
+    if (typeof details !== "undefined") {
         titre += ' - ' + details;
     }
 
