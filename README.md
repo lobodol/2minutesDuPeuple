@@ -4,7 +4,8 @@ Demo at [www.les2minutesdupeuple.tk](http://www.les2minutesdupeuple.tk).
 
 This version is a from-scratch-project. Next release will be done with Symfony Framework 3 shiping with a cool REST API.
 
-## Database structure
+## Installation
+### 1. Database structure
 ```sql
 CREATE TABLE `episodes` (
   `id` int(11) NOT NULL,
@@ -15,5 +16,12 @@ CREATE TABLE `episodes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ```
 
-## Configuration
+### 2. Configuration
 Set database crendetials in `config/database.ini`.
+
+### 3. Build assets
+```bash
+cd .gulp
+npm install
+gulp watch
+```
