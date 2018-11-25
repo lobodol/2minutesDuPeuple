@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello !{% endblock %}
+
+{% block stylesheets %}
+<style>
+    .highlight {
+        color: red;
+        background-color: gold;
+    }
+
+</style>
+{% endblock %}
+
+{% block body %}
+    <h1>Hello !</h1>
+
+    <div class="EpisodeWrapper">
+        {% for episode in episodes %}
+            <div class="EpisodeItem {{ episode.id == current ? 'EpisodeItem--current' : ''}}" data-file="{{ episode.file }}">
+                <span class="EpisodeItem-title">{{ episode.title }}</span>
+                <span class="EpisodeItem-category">{{ episode.category }}</span>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="Player">
+        <div id="Controls">
+            <button class="Control Control-prev">prev</button>
+            <button class="Control Control-play">play</button>
+            <button class="Control Control-next">next</button>
+            <button class="Control Control-loop">loop</button>
+            <button class="Control Control-rand">rand</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $('#SearchForm').on('submit', function(ev) {
+        	ev.preventDefault();
+        });
+
+        $('#SearchForm input[name="fulltext"]').on('keyup', function() {
+        	let $form = $(this).parent();
+
+        	search($form, appendResults);
+        });
+
+        function search($form, callback)
+        {
+        	if (!$form.children('input[name="fulltext"]').val().trim()) {
+        		return;
+            }
+
+	        $.ajax({
+		        url: $form.attr('action'),
+		        method: $form.attr('method'),
+		        headers: {
+			        'Content-Type': 'application/json'
+		        },
+                data: $form.serialize()
+	        }).done(function(data) {
+		        callback(data.episodes, data.fulltext);
+	        }).fail(function(data, status) {
+                console.log(data, status);
+            });
+        }
+
+        function appendResults(results, fulltext)
+        {
+            let $wrapper = $('#SearchResults');
+            let $tpl = $wrapper.children('.ResultItem').first();
+
+            console.log(results, $tpl);
+
+            $wrapper.html('');
+            $wrapper.append($tpl);
+
+            if (!results.length) {
+	            $tpl.clone()
+                  .children('.ResultItem-title')
+                  .html('Aucun résultat')
+                  .appendTo($wrapper);
+
+	            return;
+            }
+
+            for (let i = 0; i < results.length; i++) {
+                console.log(results[i]);
+            	let $obj = $tpl.clone();
+            	let obj = results[i];
+
+            	$obj.children('.ResultItem-title').html(highlight(obj.title, fulltext));
+            	$obj.children('.ResultItem-category').html(highlight(obj.category.name, fulltext));
+            	$obj.children('.ResultItem-keywords').html(highlight(obj.keywords, fulltext));
+
+            	$obj.click(function() {
+            		console.log('Play episode : ' + obj.title);
+                });
+
+            	$wrapper.append($obj);
+            }
+        }
+
+        function highlight(string, haystack)
+        {
+	        let highlight = '';
+
+	        if (string === null) {
+	        	return '';
+            }
+
+	        let index = string.toLowerCase().indexOf(haystack.toLowerCase());
+
+	        if (index !== -1) {
+		        // Get possible chars before search terms.
+		        highlight += string.substr(0, index);
+
+		        // Highlight search terms.
+		        highlight += '<span class="highlight">' + string.substr(index, haystack.length) + '</span>';
+
+		        // Get possible chars after search terms.
+		        highlight += string.substr(index + haystack.length);
+	        }
+
+	        if (highlight === '') {
+		        return string;
+	        }
+
+	        return highlight;
+        }
+
+    </script>
+
+{% endblock %}

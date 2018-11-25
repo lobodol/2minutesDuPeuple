@@ -6,7 +6,29 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <header>
+            {% block header %}
+                <form method="GET" action="{{ url('app.api.episode.search') }}" id="SearchForm">
+                    <input type="text" name="fulltext">
+                    <button type="submit">Search</button>
+                </form>
+
+                <div id="SearchResults">
+                    <div class="ResultItem">
+                        <span class="ResultItem-title"></span>
+                        <span class="ResultItem-category"></span>
+                        <span class="ResultItem-keywords"></span>
+                    </div>
+                </div>
+            {% endblock %}
+        </header>
+
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+
+        <footer>{% block footer %}{% endblock %}</footer>
+
+        {% block javascripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        {% endblock %}
     </body>
 </html>
