@@ -23,7 +23,7 @@ class AppController extends AbstractController
     {
         return $this->render('app/index.html.twig', [
             'episodes' => $episodes,
-            'current'  => $episodes[0]->getId(),
+            'current'  => isset($episodes[0]) ? $episodes[0]->getId() : null,
         ]);
     }
 
