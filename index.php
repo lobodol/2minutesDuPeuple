@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Le player du peuple, le meilleur moyen d'écouter et de rechercher un épisode des 2 minutes du peuple de François Pérusse !">
 
     <title>Les 2 minutes du peuple</title>
 
