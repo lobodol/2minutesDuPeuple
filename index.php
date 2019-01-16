@@ -103,13 +103,13 @@ try {
     <a href="#social-share">
         <img alt="Social share buttons" src="web/images/share.svg" width="20" height="20" id="share-button">
     </a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=www.firediy.fr" title="Partager sur Facebook" id="facebookButton" target="_blank"><!--
+    <a href="https://www.facebook.com/sharer/sharer.php?u=www.les2minutesdupeuple.tk" title="Partager sur Facebook" id="facebookButton" target="_blank"><!--
         --><img src="web/images/facebook.svg" width="30" height="30" alt="Partager sur Facebook"/><!--
      --></a>
-    <a href="https://twitter.com/home?status=www.firediy.fr" title="Partager sur Twitter" id="twitterButton" target="_blank"><!--
+    <a href="https://twitter.com/home?status=www.les2minutesdupeuple.tk" title="Partager sur Twitter" id="twitterButton" target="_blank"><!--
          --><img src="web/images/twitter.svg" width="30" height="30" alt="Partager sur Twitter"/><!--
      --></a>
-    <a href="https://plus.google.com/share?url=www.firediy.fr" title="Partager sur Google+" id="googleButton" target="_blank"><!--
+    <a href="https://plus.google.com/share?url=www.les2minutesdupeuple.tk" title="Partager sur Google+" id="googleButton" target="_blank"><!--
          --><img src="web/images/google.svg" width="30" height="30" alt="Partager sur Google+"/><!--
      --></a>
 </aside>
