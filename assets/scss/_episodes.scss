@@ -1,0 +1,89 @@
+.EpisodeWrapper {
+
+	.EpisodeItem {
+		position: relative;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		height: 50px;
+
+		padding-left: 48px;
+		background-color: #393939;
+
+		font-size: 0.8em;
+
+		&:before {
+			content: "";
+
+			display: block;
+			position: absolute;
+
+			width: 28px;
+			height: 28px;
+
+			left: 10px;
+			top: 10px;
+
+			border-radius: 3px;
+
+			background-color: #4d4d4d;
+
+			box-shadow: 0 0 3px rgba(0,0,0,.25);
+		}
+
+		&:after {
+			content: "";
+
+			display: block;
+			position: absolute;
+
+			left: 20px;
+			top: 18px;
+
+			width: 0;
+			height: 0;
+
+			border-style: solid;
+			border-width: 6px 0 6px 10px;
+			border-color: transparent transparent transparent #c8cbcd;
+		}
+
+		&:nth-child(2n+1) {
+			background-color: #323232;
+		}
+
+		&--current {
+			background-color: $orange !important;
+
+			&:before {
+				background-color: #e6e6e6!important;
+			}
+
+			&:after {
+				content: "";
+				top: 19px!important;
+				left: 20px!important;
+
+				width: 2px!important;
+				height: 11px!important;
+
+				border-left: solid 3px #323232!important;
+				border-right: solid 3px #323232!important;
+				border-top: none!important;
+				border-bottom: none!important;
+
+				color: #323232;
+			}
+		}
+
+		.EpisodeItem-title {
+			color: #eee;
+		}
+
+		.EpisodeItem-category {
+			color: #5c5c5c;
+		}
+	}
+}

@@ -3,8 +3,6 @@
 {% block title %}Hello !{% endblock %}
 
 {% block body %}
-    <h1>Hello !</h1>
-
     <div class="EpisodeWrapper">
         {% for episode in episodes %}
             <div class="EpisodeItem {{ episode.id == current ? 'EpisodeItem--current' : ''}}" data-file="{{ episode.file }}">
@@ -15,113 +13,26 @@
     </div>
     <div id="Player">
         <div id="Controls">
-            <button class="Control Control-prev">prev</button>
-            <button class="Control Control-play">play</button>
-            <button class="Control Control-next">next</button>
-            <button class="Control Control-loop">loop</button>
-            <button class="Control Control-rand">rand</button>
+            {# Previous track #}
+            <button class="Control Control-prev">
+                <svg class="svg-icon svg-icon-prev" height="1em" width="1em" viewBox="0 0 12 12" aria-hidden="true"><g><path d="M2,5.3972543 L2,0.500347316 C2,0.22373461 1.77614237,0 1.5,0 C1.22193241,0 1,0.224013124 1,0.500347316 L1,11.4996527 C1,11.7762654 1.22385763,12 1.5,12 C1.77806759,12 2,11.7759869 2,11.4996527 L2,6.5972543 L11,12 L11,0 L2,5.3972543 L2,5.3972543 Z"></path></g></svg>
+            </button>
+            {# Play/pause #}
+            <button class="Control Control-play">
+                <svg class="svg-icon svg-icon-play" height="1em" width="1em" viewBox="0 0 12 12" aria-hidden="true"><g><polygon fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" points="2.5 .5 2.5 11.5 11.5 6"></polygon></g></svg>
+            </button>
+            {# Next track #}
+            <button class="Control Control-next">
+                <svg class="svg-icon svg-icon-next" height="1em" width="1em" viewBox="0 0 12 12" aria-hidden="true"><g><path d="M11,0.50035 L11,11.4996537 C11,11.7759879 10.768066,12 10.5,12 C10.223858,12 10,11.7710004 10,11.4996537 L10,7.08139 L1.5623435,11.9492662 C1.3123668,12.0934835 1,11.9130717 1,11.6244769 L1,0.37552 C1,0.08693 1.3123668,-0.09348 1.5623435,0.05073 L10,4.918612 L10,0.50035 C10,0.22401 10.231934,3.88578059e-16 10.5,3.88578059e-16 C10.776142,3.88578059e-16 11,0.229 11,0.50035 L11,0.50035 Z"></path></g></svg>
+            </button>
+            {# Loop mode #}
+            <button class="Control Control-loop Control--disabled">
+                <svg class="svg-icon svg-icon-repeat" height="1em" width="1em" viewBox="0 0 12 12" aria-hidden="true"><g><path d="M8.66670527,9.21429724 L8.00000414,9.21429724 L8.00000414,10.5 L5.3333485,8.57144897 L5.3333485,8.25 C5.3333485,8.07170069 5.48174767,7.92860069 5.66664943,7.92860069 L8.66669907,7.92860069 C9.77059979,7.92860069 10.6666474,7.06450138 10.6666474,6 C10.6666474,4.93425103 9.77059979,4.07139931 8.66669907,4.07139931 L8.3333485,4.07139931 C8.14844674,4.07139931 7.99999793,3.92700207 7.99999793,3.75 L7.99999793,3.10715172 C7.99999793,2.92890207 8.14844674,2.78575241 8.3333485,2.78575241 L8.66669907,2.78575241 C10.5074457,2.78575241 12,4.22495172 12,6 C12,7.77504828 10.5074519,9.21429724 8.66670527,9.21429724 L8.66670527,9.21429724 L8.66670527,9.21429724 Z M6.33335057,4.07139931 L3.33335057,4.07139931 C2.22804757,4.07139931 1.33334643,4.93424483 1.33334643,6 C1.33334643,7.06450138 2.22804757,7.92860069 3.33335057,7.92860069 L3.6666515,7.92860069 C3.85020062,7.92860069 4.00000207,8.07170069 4.00000207,8.25 L4.00000207,8.89284828 C4.00000207,9.06984414 3.85020062,9.21429724 3.6666515,9.21429724 L3.33335057,9.21429724 C1.49254809,9.21429724 0,7.77504828 0,6 C0,4.22495172 1.49254809,2.78575241 3.33335057,2.78575241 L4.00000207,2.78575241 L4.00000207,1.5 L6.66670114,3.42855103 L6.66670114,3.75 C6.66670114,3.92699586 6.51685005,4.07139931 6.33335057,4.07139931 L6.33335057,4.07139931 L6.33335057,4.07139931 Z"></path></g></svg>
+            </button>
+            {# Shuffle mode #}
+            <button class="Control Control-shuffle Control--disabled">
+                <svg class="svg-icon svg-icon-shuffle" height="1em" width="1em" viewBox="0 0 12 12" aria-hidden="true"><g><path d="M9.33334701,9.21430078 L8.66665007,9.21430078 C6.82595175,9.21430078 5.33335286,7.77500391 5.33335286,6 C5.33335286,4.93425 4.4386033,4.0714043 3.33335579,4.0714043 L0.682851229,4.0714043 C0.298253761,4.07139844 0,3.78384961 0,3.42854883 C0,3.07324805 0.298253761,2.78569922 0.666650065,2.7 C0.803540039,2.7 3.31641938,2.71004814 3.33334993,2.7 C5.17409513,2.78569922 6.66669987,4.22494922 6.66669987,6 C6.66669987,7.06450195 7.56275021,7.92860156 8.66665007,7.92860156 L11.6667013,7.92860156 C11.8515997,7.92860156 12,8.07169922 12,8.25000586 L12,8.57145703 L9.33334701,10.5 L9.33334701,9.21430078 L9.33334701,9.21430078 Z M8.66664421,4.07139844 C8.29959556,4.07139844 7.95949416,4.17424805 7.66264665,4.34080078 C7.49529126,3.93740625 7.2631488,3.57435352 6.99054737,3.23729883 C7.4844983,2.95750195 8.05264646,2.78575195 8.7,2.7 C8.71310653,2.72942713 9.2101824,2.7 9.3,2.7 L9.3,1.5 L11.9999941,3.42854883 L11.9999941,3.75 C11.9999941,3.927 11.8515938,4.07139844 11.6666955,4.07139844 L8.66664421,4.07139844 L8.66664421,4.07139844 Z M3.33334993,7.9285957 C3.70174624,7.9285957 4.04184764,7.82579883 4.33740023,7.65919336 C4.50469702,8.06259375 4.7368512,8.42569336 5.00945263,8.76269531 C4.5155017,9.04254492 3.94740628,9.21429492 3.33335579,9.3 C3.31454695,9.28883634 0.898095703,9.30000003 0.666655924,9.3 C0.298253761,9.21430078 0,8.92669922 0,8.57145117 C0,8.21615039 0.298253761,7.9285957 0.666650065,7.9285957 L3.33334993,7.9285957 L3.33334993,7.9285957 Z"></path></g></svg>
+            </button>
         </div>
     </div>
-{% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script>
-        $('#SearchForm').on('submit', function(ev) {
-        	ev.preventDefault();
-        });
-
-        $('#SearchForm input[name="fulltext"]').on('keyup', function() {
-        	let $form = $(this).parent();
-
-        	search($form, appendResults);
-        });
-
-        function search($form, callback)
-        {
-        	if (!$form.children('input[name="fulltext"]').val().trim()) {
-        		return;
-            }
-
-	        $.ajax({
-		        url: $form.attr('action'),
-		        method: $form.attr('method'),
-		        headers: {
-			        'Content-Type': 'application/json'
-		        },
-                data: $form.serialize()
-	        }).done(function(data) {
-		        callback(data.episodes, data.fulltext);
-	        }).fail(function(data, status) {
-                console.log(data, status);
-            });
-        }
-
-        function appendResults(results, fulltext)
-        {
-            let $wrapper = $('#SearchResults');
-            let $tpl = $wrapper.children('.ResultItem').first();
-
-            console.log(results, $tpl);
-
-            $wrapper.html('');
-            $wrapper.append($tpl);
-
-            if (!results.length) {
-	            $tpl.clone()
-                  .children('.ResultItem-title')
-                  .html('Aucun résultat')
-                  .appendTo($wrapper);
-
-	            return;
-            }
-
-            for (let i = 0; i < results.length; i++) {
-                console.log(results[i]);
-            	let $obj = $tpl.clone();
-            	let obj = results[i];
-
-            	$obj.children('.ResultItem-title').html(highlight(obj.title, fulltext));
-            	$obj.children('.ResultItem-category').html(highlight(obj.category.name, fulltext));
-            	$obj.children('.ResultItem-keywords').html(highlight(obj.keywords, fulltext));
-
-            	$obj.click(function() {
-            		console.log('Play episode : ' + obj.title);
-                });
-
-            	$wrapper.append($obj);
-            }
-        }
-
-        function highlight(string, haystack)
-        {
-	        let highlight = '';
-
-	        if (string === null) {
-	        	return '';
-            }
-
-	        let index = string.toLowerCase().indexOf(haystack.toLowerCase());
-
-	        if (index !== -1) {
-		        // Get possible chars before search terms.
-		        highlight += string.substr(0, index);
-
-		        // Highlight search terms.
-		        highlight += '<span class="highlight">' + string.substr(index, haystack.length) + '</span>';
-
-		        // Get possible chars after search terms.
-		        highlight += string.substr(index + haystack.length);
-	        }
-
-	        if (highlight === '') {
-		        return string;
-	        }
-
-	        return highlight;
-        }
-
-    </script>
-
 {% endblock %}

@@ -1,0 +1,48 @@
+#Player {
+	position: fixed;
+	bottom: 0;
+
+	width: 100%;
+	height: 166px;
+
+	background-color: $dark-grey;
+}
+
+#Controls {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+
+	padding: 25px 0;
+
+	.Control {
+		flex-basis: 25%;
+
+		font-size: 3em;
+
+		&-play,
+		&-pause {
+			font-size: 5em;
+		}
+
+		&-loop,
+		&-shuffle {
+			font-size: 2em;
+			flex-basis: 50% !important;
+		}
+
+		&--disabled	svg {
+			fill: #444444 !important;
+		}
+
+		svg {
+			fill: white;
+		}
+	}
+
+}

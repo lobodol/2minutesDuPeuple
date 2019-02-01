@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('css/app') }}
-        {% endblock %}
-    </head>
-    <body>
-        <header>
-            {% block header %}
-                <form method="GET" action="{{ url('app.api.episode.search') }}" id="SearchForm">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('css/app') }}
+    {% endblock %}
+</head>
+<body>
+<header id="header">
+    {% block header %}
+        <form method="GET" action="{{ url('app.api.episode.search') }}" id="SearchForm">
                     <input type="text" name="fulltext">
-                    <button type="submit">Search</button>
-                </form>
+            <button type="submit">Search</button>
+        </form>
 
-                <div id="SearchResults">
-                    <div class="ResultItem">
-                        <span class="ResultItem-title"></span>
-                        <span class="ResultItem-category"></span>
-                        <span class="ResultItem-keywords"></span>
-                    </div>
-                </div>
-            {% endblock %}
-        </header>
+        <div id="SearchResults">
+            <div class="ResultItem">
+                <span class="ResultItem-title"></span>
+                <span class="ResultItem-category"></span>
+                <span class="ResultItem-keywords"></span>
+            </div>
+        </div>
+    {% endblock %}
+</header>
 
-        {% block body %}{% endblock %}
+{% block body %}{% endblock %}
 
-        <footer>{% block footer %}{% endblock %}</footer>
+<footer>{% block footer %}{% endblock %}</footer>
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('js/app') }}
-        {% endblock %}
-    </body>
+{% block javascripts %}
+    {{ encore_entry_script_tags('js/app') }}
+{% endblock %}
+</body>
 </html>
