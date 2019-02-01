@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="EpisodeWrapper">
-        {% for episode in episodes %}
-            <div class="EpisodeItem {{ episode.id == current ? 'EpisodeItem--current' : ''}}" data-file="{{ episode.file }}">
-                <span class="EpisodeItem-title">{{ episode.title }}</span>
-                <span class="EpisodeItem-category">{{ episode.category }}</span>
+    <div class="TrackWrapper">
+        {% for track in tracks %}
+            <div class="TrackItem {{ track.id == current ? 'TrackItem--current' : ''}}" data-file="{{ track.file }}">
+                <span class="TrackItem-title">{{ track.title }}</span>
+                <span class="TrackItem-category">{{ track.category }}</span>
             </div>
         {% endfor %}
     </div>

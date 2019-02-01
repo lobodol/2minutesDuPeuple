@@ -13,7 +13,7 @@
 <header id="header">
     {% block header %}
         <img src="{{ asset('build/images/logo.png') }}" alt="Les 2 minutes du peuple" id="logo">
-        <form method="GET" action="{{ url('app.api.episode.search') }}" id="SearchForm">
+        <form method="GET" action="{{ url('app.api.track.search') }}" id="SearchForm">
             <input type="search" name="fulltext" placeholder="Recherche rapide" class="SearchField">
             <button type="submit" class="SearchButton">
                 <svg class="svg-icon svg-icon-search topbar-search-icon" height="16" width="16" viewBox="0 0 12 12" aria-hidden="true"><g><path d="M9.82704886,8.58448737 L11.7777935,10.535232 C11.915617,10.6915941 12,10.8966309 12,11.1213763 C12,11.6066268 11.6066268,12 11.1213763,12 C10.8966309,12 10.6915941,11.915617 10.5362202,11.7768052 L8.58465502,9.8269272 C6.4482817,11.3773812 3.46478029,11.2096871 1.56504662,9.30995338 C-0.543097517,7.20180925 -0.518329568,3.75906433 1.62036738,1.62036738 C3.75906433,-0.518329568 7.20180925,-0.543097517 9.30995338,1.56504662 C11.2096374,3.4647306 11.3773724,6.44812563 9.82704886,8.58448737 Z M8.57125613,8.57125613 C10.2920468,6.85046548 10.311975,4.08044083 8.61576709,2.38423291 C6.91955917,0.688024987 4.14953452,0.707953221 2.42874387,2.42874387 C0.707953221,4.14953452 0.688024987,6.91955917 2.38423291,8.61576709 C4.08044083,10.311975 6.85046548,10.2920468 8.57125613,8.57125613 Z"></path></g></svg>

@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EpisodeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\TrackRepository")
  */
-class Episode
+class Track
 {
     /**
      * @ORM\Id()
@@ -67,7 +67,7 @@ class Episode
     /**
      * @param string $title
      *
-     * @return Episode
+     * @return Track
      */
     public function setTitle(string $title): self
     {
@@ -87,7 +87,7 @@ class Episode
     /**
      * @param null|string $keywords
      *
-     * @return Episode
+     * @return Track
      */
     public function setKeywords(?string $keywords): self
     {
@@ -107,7 +107,7 @@ class Episode
     /**
      * @param string $file
      *
-     * @return Episode
+     * @return Track
      */
     public function setFile(string $file): self
     {
@@ -127,7 +127,7 @@ class Episode
     /**
      * @param Category|null $category
      *
-     * @return Episode
+     * @return Track
      */
     public function setCategory(?Category $category): self
     {

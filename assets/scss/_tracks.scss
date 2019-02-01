@@ -1,6 +1,5 @@
-.EpisodeWrapper {
-
-	.EpisodeItem {
+.TrackWrapper {
+	.TrackItem {
 		position: relative;
 
 		display: flex;
@@ -78,11 +77,11 @@
 			}
 		}
 
-		.EpisodeItem-title {
+		.TrackItem-title {
 			color: #eee;
 		}
 
-		.EpisodeItem-category {
+		.TrackItem-category {
 			color: #5c5c5c;
 		}
 	}

@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Episode;
+use App\Entity\Track;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,35 +12,16 @@ class AppController extends AbstractController
 {
     /**
      * @Route("/", name="app.home", methods={"GET"})
-     *
-     * @Entity("episodes", expr="repository.findAll()", class="App\Entity\Episode")
-     *
-     * @param Episode[] $episodes
+     * @Entity("tracks", expr="repository.findAll()", class="App\Entity\Track")
+     * @param Track[] $tracks
      *
      * @return Response
      */
-    public function index(array $episodes = [])
+    public function index(array $tracks = [])
     {
         return $this->render('app/index.html.twig', [
-            'episodes' => $episodes,
-            'current'  => isset($episodes[0]) ? $episodes[0]->getId() : null,
+            'tracks'  => $tracks,
+            'current' => isset($tracks[0]) ? $tracks[0]->getId() : null,
         ]);
-    }
-
-    /**
-     * @Route("/{episode}", name="app.play_episode", requirements={"episode" = "\d+"}, methods={"GET"})
-     *
-     * @param array $episodes
-     * @param int   $episode
-     *
-     * @return Response
-     */
-    public function playEpisode(array $episodes, $episode)
-    {
-        return $this->render('app/index.html.twig', [
-            'episodes' => $episodes,
-            'current'  => $episode
-        ]);
-
     }
 }

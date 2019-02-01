@@ -1,4 +1,4 @@
 easy_admin:
     entities:
-        - App\Entity\Episode
+        - App\Entity\Track
         - App\Entity\Category
