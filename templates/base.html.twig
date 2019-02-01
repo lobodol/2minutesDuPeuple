@@ -12,6 +12,7 @@
 <body>
 <header id="header">
     {% block header %}
+        <img src="{{ asset('build/images/logo.png') }}" alt="Les 2 minutes du peuple" id="logo">
         <form method="GET" action="{{ url('app.api.episode.search') }}" id="SearchForm">
                     <input type="text" name="fulltext">
             <button type="submit">Search</button>
