@@ -3,7 +3,6 @@
 	bottom: 0;
 
 	width: 100%;
-	height: 166px;
 
 	background-color: $dark-grey;
 }
@@ -21,19 +20,11 @@
 	padding: 25px 0;
 
 	.Control {
-		flex-basis: 25%;
-
-		font-size: 3em;
+		font-size: 1.25em;
 
 		&-play,
 		&-pause {
-			font-size: 5em;
-		}
-
-		&-loop,
-		&-shuffle {
 			font-size: 2em;
-			flex-basis: 50% !important;
 		}
 
 		&--disabled	svg {
