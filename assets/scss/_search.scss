@@ -1,0 +1,14 @@
+#SearchForm {
+	.SearchField {
+		border: none;
+		border-radius: 20px;
+
+		padding: 10px;
+	}
+
+	.SearchButton{
+		svg {
+			fill: white;
+		}
+	}
+}
