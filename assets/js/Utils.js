@@ -21,6 +21,19 @@ export default class Utils {
 	}
 
 	/**
+	 * Scroll to the given element if is not into view
+	 *
+	 * @param {object} element
+	 */
+	scrollTo(element) {
+		if (true || !this.isScrolledIntoView(element)) {
+			let scrollValue = element.offsetY - 100;
+
+			window.scroll(0, scrollValue);
+		}
+	}
+
+	/**
 	 * Return whether the given element's height is bigger than window's height
 	 *
 	 * @param {object} element
@@ -40,5 +53,22 @@ export default class Utils {
 		for (let j, x, i = list.length; i; j = Math.floor(Math.random() * i), x = list[--i], list[i] = list[j], list[j] = x);
 
 		return list;
+	}
+
+	/**
+	 * Update page title
+	 *
+	 * @param {Track} track
+	 */
+	updatePageTitle(track) {
+		let title = track.title + (track.category ? ' - ' + track.category : '');
+
+		document.title = title;
+
+		// Update media information for Chrome.
+		if ('mediaSession' in navigator) {
+			navigator.mediaSession.metadata.title = title;
+			navigator.mediaSession.metadata.album = track.category;
+		}
 	}
 }

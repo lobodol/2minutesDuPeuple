@@ -1,0 +1,268 @@
+import Track from './Track';
+
+export default class Player {
+
+	/**
+	 * Player constructor
+	 *
+	 * @param {Utils} utils
+	 */
+	constructor(utils) {
+		this.utils    = utils;
+		this.playlist = [];
+		this.current  = null;
+		this.player   = null;
+		this.autoplay = true;
+		this.shuffle  = false;
+	}
+
+	/**
+	 * Initialize Player
+	 *
+	 * @param {Element} play    Play/pause button
+	 * @param {Element} next    Next track button
+	 * @param {Element} prev    Previous track button
+	 * @param {Element} shuffle Shuffle button
+	 * @param {Element} loop    Loop button
+	 */
+	init(play, next, prev, shuffle, loop) {
+		this._initPlaylist();
+		this._initMediaSession();
+		this._initAudioPlayer(play);
+		this._initControls(play, next, prev, shuffle, loop);
+	}
+
+	/**
+	 * Initialize playlist
+	 *
+	 * @private
+	 */
+	_initPlaylist() {
+		this.playlist = [];
+
+		document.querySelectorAll('.TrackItem').forEach(item => {
+			let track = new Track(item);
+			item.addEventListener('click', () => this._playTrack(track));
+			this.playlist.push(track);
+		});
+	}
+
+	/**
+	 * Initialize audio player
+	 *
+	 * @private
+	 */
+	_initAudioPlayer(play) {
+		this._loadFirstTrack();
+		this.player = new Audio(this.current.file);
+
+		// Listener for timing
+		this.player.addEventListener('loadedmetadata', () => document.querySelector('.MaxTime').innerText = this._timeToString(this.player.duration));
+
+		// Each time duration is updated, update progress bar and timing.
+		this.player.addEventListener('timeupdate', () => {
+			// Convert duration time to percent.
+			let percent = Math.round((this.player.currentTime / this.player.duration) * 100);
+
+			document.querySelector('.CurrentDuration').style.width = percent + '%';
+			document.querySelector('.Tooltip').style.left          = percent + '%';
+			document.querySelector('.CurrentTime').innerText       = this._timeToString(this.player.currentTime);
+		}, false);
+
+		// Listener for autoplay.
+		this.player.addEventListener('ended', () => {
+			if (this.autoplay) {
+				this._nextTrack();
+			}
+		});
+
+		// Listener for pause.
+		this.player.addEventListener('pause', () => play.classList.add('Control--paused'));
+
+		// Listener for pause.
+		this.player.addEventListener('play', () => play.classList.remove('Control--paused'));
+
+		// Listener for errors.
+		this.player.addEventListener('error', () => alert('Ukulele ma guitare ? Impossible de lire cet épisode...'));
+	}
+
+	/**
+	 * @private
+	 */
+	_initMediaSession() {
+		if ('mediaSession' in navigator) {
+			navigator.mediaSession.metadata = new MediaMetadata({
+				title: null,
+				album: null,
+				artwork: [
+					{ src: 'https://dummyimage.com/512x512', sizes: '512x512', type: 'image/png' }
+				]
+			});
+
+			navigator.mediaSession.setActionHandler('play', this.player.play);
+			navigator.mediaSession.setActionHandler('pause', this.player.pause);
+			navigator.mediaSession.setActionHandler('previoustrack', this._previousTrack);
+			navigator.mediaSession.setActionHandler('nexttrack', this._nextTrack);
+		}
+	}
+
+	/**
+	 * Load first track
+	 *
+	 * @private
+	 */
+	_loadFirstTrack() {
+		let url = window.location.href;
+
+		// Extract track ID from URL
+		let trackId = url.substr(url.indexOf('#') + 1);
+
+		// Search for it in the playlist
+		let track = this.playlist.find(item => {
+			return item.id === trackId;
+		});
+
+		// If track exists
+		if (track) {
+			// Load it
+			this.current = track;
+			this.utils.scrollTo(track.element);
+		} else {
+			// By default, load first track of the playlist
+			this.current = this.playlist[0];
+		}
+
+		this.current.setCurrent();
+	}
+
+	/**
+	 * Initialize controls of the player
+	 *
+	 * @param {Element} play    Play/pause button
+	 * @param {Element} next    Next track button
+	 * @param {Element} prev    Previous track button
+	 * @param {Element} shuffle Shuffle button
+	 * @param {Element} loop    Loop button
+	 * @private
+	 */
+	_initControls(play, next, prev, shuffle, loop) {
+		// Play/pause button
+		play.addEventListener('click', ev => this.player.paused ? this.player.play() : this.player.pause());
+
+		// Previous track
+		prev.addEventListener('click', ev => this._previousTrack());
+
+		// Next track
+		next.addEventListener('click', ev => this._nextTrack());
+
+		// Shuffle button
+		shuffle.addEventListener('click', ev => {
+			this.shuffle = !this.shuffle;
+			shuffle.classList.toggle('Control--disabled');
+
+			if (this.shuffle) {
+				this.playlist = this.utils.shuffle(this.playlist);
+			} else {
+				// Sort by ID
+				this.playlist.sort((a, b) => {
+					if (a.id < b.id)
+						return -1;
+					if (a.id > b.id)
+						return 1;
+					return 0;
+				});
+			}
+		});
+
+		// Loop button
+		loop.addEventListener('click', () => {
+			this.autoplay = !this.autoplay;
+			loop.classList.toggle('Control--disabled')
+		});
+
+		// TODO Jump to time.
+		document.querySelector('.Duration').addEventListener('click', ev => {
+			let percent = (ev.pageX - ev.target.offsetLeft) / ev.target.offsetWidth;
+			this.player.currentTime = Math.floor(percent * this.player.duration);
+		});
+	}
+
+	/**
+	 * Convert given duration into a string like 03:23
+	 *
+	 * @param {number} time
+	 * @return {string}
+	 * @private
+	 */
+	_timeToString(time) {
+		if (isNaN(time)) {
+			return '0:00';
+		}
+
+		let minutes = Math.floor(time / 60);
+		let seconds = Math.floor(time - minutes * 60);
+
+		seconds = (seconds.toString().length <= 1) ? '0' + seconds : seconds;
+
+		return minutes + ':' + seconds;
+	}
+
+	/**
+	 * Find next track and play it
+	 *
+	 * @private
+	 */
+	_nextTrack() {
+		// Find current episode in playlist
+		let index = this.playlist.indexOf(this.current);
+
+		// By default, get the first episode of the playlist
+		let track = this.playlist[0];
+
+		if (index !== -1 && typeof this.playlist[index + 1] !== 'undefined') {
+			track = this.playlist[index + 1];
+		}
+
+		// And play it
+		this._playTrack(track);
+	}
+
+	/**
+	 * Find previous track and play it
+	 *
+	 * @private
+	 */
+	_previousTrack() {
+		// Find current episode in playlist
+		let index = this.playlist.indexOf(this.current);
+
+		// By default, get the last episode of the playlist
+		let track = this.playlist[this.playlist.length - 1];
+
+		if (index !== -1 && typeof this.playlist[index - 1] !== 'undefined') {
+			track = this.playlist[index - 1];
+		}
+
+		// And play it
+		this._playTrack(track);
+	}
+
+	/**
+	 * Play the given track
+	 *
+	 * @param {Track} track The track to play
+	 * @private
+	 */
+	_playTrack(track) {
+		track.setCurrent();
+		this.current.unsetCurrent();
+
+		this.current    = track;
+		this.player.src = track.file;
+		this.player.load();
+		this.player.play();
+
+		this.utils.scrollTo(track.element);
+		this.utils.updatePageTitle(track);
+	}
+}

@@ -1,13 +1,13 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
+import Utils from './Utils';
+import Player from './Player';
 
-// any CSS you require will output into a single css file (app.css in this case)
+const utils = new Utils;
+const player = new Player(utils);
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-// const $ = require('jquery');
-
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+player.init(
+	document.querySelector('.Control-play'),
+	document.querySelector('.Control-next'),
+	document.querySelector('.Control-prev'),
+	document.querySelector('.Control-shuffle'),
+	document.querySelector('.Control-loop')
+);
