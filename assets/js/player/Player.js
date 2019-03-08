@@ -191,10 +191,30 @@ export default class Player {
 
 		// Jump to time
 		document.querySelector('.Duration').addEventListener('click', ev => {
-			let position = ev.pageX - this.utils.offset(ev.currentTarget).left;
-			let percent = (position / ev.currentTarget.offsetWidth);
+			let percent             = this.computePercent(ev);
 			this.player.currentTime = Math.floor(percent * this.player.duration);
 		});
+
+		// When mouse move over the time line : display a tooltip
+		document.querySelector('.Duration').addEventListener('mousemove', ev => {
+			let percent = this.computePercent(ev);
+			let time    = this._timeToString(Math.floor(percent * this.player.duration));
+
+			ev.currentTarget.classList.add('Duration--tooltiped');
+			ev.currentTarget.setAttribute('data-time', time);
+			document.styleSheets[0].addRule('.Duration--tooltiped:before', 'left: ' + Math.round(100*percent) + '%;');
+		});
+		document.querySelector('.Duration').addEventListener('mouseout', ev => ev.currentTarget.classList.remove('Duration--tooltiped'));
+	}
+
+	/**
+	 *
+	 * @param {Event} ev
+	 * @return {number}
+	 */
+	computePercent(ev) {
+		let position = ev.pageX - this.utils.offset(ev.currentTarget).left;
+		return  (position / ev.currentTarget.offsetWidth);
 	}
 
 	/**

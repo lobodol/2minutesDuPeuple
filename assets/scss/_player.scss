@@ -53,3 +53,29 @@
 	}
 
 }
+
+#Progression {
+	.Duration {
+		position: relative;
+
+		@include desktop {
+			&--tooltiped:before {
+				position: absolute;
+				bottom: 100%;
+
+				content: attr(data-time);
+
+				padding: 5px;
+				margin-left: -15px;
+				margin-bottom: 11px;
+
+				border-radius: 5px;
+
+				background-color: rgba(0, 0, 0, 0.75);
+
+				color: white;
+				font-size: 0.8em;
+			}
+		}
+	}
+}
