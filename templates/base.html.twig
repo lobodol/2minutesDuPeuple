@@ -12,6 +12,7 @@
 <body>
 <header id="header">
     {% block header %}
+    <div class="WidthWrapper">
         <img src="{{ asset('build/images/logo.png') }}" alt="Les 2 minutes du peuple" id="logo">
         <form method="GET" action="{{ url('app.api.track.search') }}" id="SearchForm">
             <input type="search" name="fulltext" placeholder="Recherche rapide" class="SearchField">
@@ -27,6 +28,7 @@
                 <span class="ResultItem-keywords"></span>
             </div>
         </div>
+    </div>
     {% endblock %}
 </header>
 
