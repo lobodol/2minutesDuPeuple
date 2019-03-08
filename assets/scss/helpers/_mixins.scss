@@ -3,19 +3,19 @@
  */
 
 @mixin desktop {
-	@media (max-width: #{$desktop-width - 1}) {
+	@media (min-width: #{$desktop_width - 1}) {
 		@content;
 	}
 }
 
 @mixin tablet {
-	@media (max-width: #{$desktop-width + 19}) {
+	@media (min-width: #{$desktop_width + 19}) {
 		@content;
 	}
 }
 
 @mixin phone {
-	@media (max-width: #{$tablet-width + 19}) {
+	@media (min-width: #{$tablet_width + 19}) {
 		@content;
 	}
 }

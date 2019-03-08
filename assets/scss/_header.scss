@@ -1,10 +1,17 @@
 #header {
 	position: fixed;
+	z-index: 10;
 	top: 0;
 
 	display: block;
 	width: 100%;
-	height: $header-height;
+	height: $header_height;
 
 	background-color: #2b2b2b;
+
+	padding: 10px;
+}
+
+#logo {
+	position: absolute;
 }

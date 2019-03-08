@@ -3,6 +3,7 @@
 	bottom: 0;
 
 	width: 100%;
+	height: $player_height;
 
 	background-color: $dark-grey;
 }
@@ -31,6 +32,19 @@
 
 		&--disabled	svg {
 			fill: #444444 !important;
+		}
+
+		.svg-icon-play {
+			display: none;
+		}
+
+		&--paused {
+			.svg-icon-play {
+				display: initial;
+			}
+			.svg-icon-pause {
+				display: none;
+			}
 		}
 
 		svg {
