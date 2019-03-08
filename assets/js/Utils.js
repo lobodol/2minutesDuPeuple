@@ -8,7 +8,7 @@ export default class Utils {
 	 */
 	isScrolledIntoView(element) {
 		const pageTop    = window.scrollY;
-		const pageBottom = pageTop + window.innerHeight;
+		const pageBottom = pageTop + window.innerHeight - document.querySelector('#Player').offsetHeight;
 
 		const elementTop    = element.offsetTop;
 		const elementBottom = elementTop + element.offsetHeight;
@@ -26,8 +26,8 @@ export default class Utils {
 	 * @param {object} element
 	 */
 	scrollTo(element) {
-		if (true || !this.isScrolledIntoView(element)) {
-			let scrollValue = element.offsetY - 100;
+		if (!this.isScrolledIntoView(element)) {
+			let scrollValue = element.offsetTop - 100;
 
 			window.scroll(0, scrollValue);
 		}
