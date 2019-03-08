@@ -52,7 +52,7 @@ export default class Player {
 
 		document.querySelectorAll('.TrackItem').forEach(item => {
 			let track = new Track(item);
-			item.addEventListener('click', () => this._playTrack(track));
+			item.addEventListener('click', () => this.playTrack(track));
 			this.playlist.push(track);
 		});
 	}
@@ -254,7 +254,7 @@ export default class Player {
 		}
 
 		// And play it
-		this._playTrack(track);
+		this.playTrack(track);
 	}
 
 	/**
@@ -274,16 +274,15 @@ export default class Player {
 		}
 
 		// And play it
-		this._playTrack(track);
+		this.playTrack(track);
 	}
 
 	/**
 	 * Play the given track
 	 *
 	 * @param {Track} track The track to play
-	 * @private
 	 */
-	_playTrack(track) {
+	playTrack(track) {
 		track.setCurrent();
 		this.current.unsetCurrent();
 
