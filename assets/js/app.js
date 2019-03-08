@@ -1,7 +1,7 @@
 import Utils from './Utils';
-import Player from './Player';
+import Player from './player/Player';
 
-const utils = new Utils;
+const utils  = new Utils;
 const player = new Player(utils);
 
 player.init(

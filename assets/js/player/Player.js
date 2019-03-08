@@ -1,5 +1,7 @@
 'use strict';
 
+import Control from './Control';
+import PlayControl from './PlayControl';
 import Track from './Track';
 
 export default class Player {
@@ -28,10 +30,16 @@ export default class Player {
 	 * @param {Element} loop    Loop button
 	 */
 	init(play, next, prev, shuffle, loop) {
+		let playControl    = new PlayControl(play);
+		let nextControl    = new Control(next);
+		let prevControl    = new Control(prev);
+		let shuffleControl = new Control(shuffle);
+		let loopControl    = new Control(loop);
+
 		this._initPlaylist();
 		this._initMediaSession();
-		this._initAudioPlayer(play);
-		this._initControls(play, next, prev, shuffle, loop);
+		this._initAudioPlayer(playControl);
+		this._initControls(playControl, nextControl, prevControl, shuffleControl, loopControl);
 	}
 
 	/**
@@ -52,6 +60,7 @@ export default class Player {
 	/**
 	 * Initialize audio player
 	 *
+	 * @param {PlayControl} play
 	 * @private
 	 */
 	_initAudioPlayer(play) {
@@ -61,9 +70,9 @@ export default class Player {
 		// Listener for timing
 		this.player.addEventListener('loadedmetadata', () => document.querySelector('.MaxTime').innerText = this._timeToString(this.player.duration));
 
-		// Each time duration is updated, update progress bar and timing.
+		// Each time duration is updated, update progress bar and timing
 		this.player.addEventListener('timeupdate', () => {
-			// Convert duration time to percent.
+			// Convert duration time to percent
 			let percent = Math.round((this.player.currentTime / this.player.duration) * 100);
 
 			document.querySelector('.CurrentDuration').style.width = percent + '%';
@@ -79,10 +88,10 @@ export default class Player {
 		});
 
 		// Listener for pause.
-		this.player.addEventListener('pause', () => play.classList.add('Control--paused'));
+		this.player.addEventListener('pause', () => play.pause());
 
-		// Listener for pause.
-		this.player.addEventListener('play', () => play.classList.remove('Control--paused'));
+		// Listener for play.
+		this.player.addEventListener('play', () => play.play());
 
 		// Listener for errors.
 		this.player.addEventListener('error', () => alert('Ukulele ma guitare ? Impossible de lire cet épisode...'));
@@ -140,46 +149,44 @@ export default class Player {
 	/**
 	 * Initialize controls of the player
 	 *
-	 * @param {Element} play    Play/pause button
-	 * @param {Element} next    Next track button
-	 * @param {Element} prev    Previous track button
-	 * @param {Element} shuffle Shuffle button
-	 * @param {Element} loop    Loop button
+	 * @param {Control} play    Play/pause button
+	 * @param {Control} next    Next track button
+	 * @param {Control} prev    Previous track button
+	 * @param {Control} shuffle Shuffle button
+	 * @param {Control} loop    Loop button
 	 * @private
 	 */
 	_initControls(play, next, prev, shuffle, loop) {
 		// Play/pause button
-		play.addEventListener('click', ev => this.player.paused ? this.player.play() : this.player.pause());
+		play.click(() => this.player.paused ? this.player.play() : this.player.pause());
 
 		// Previous track
-		prev.addEventListener('click', ev => this._previousTrack());
+		prev.click(() => this._previousTrack());
 
 		// Next track
-		next.addEventListener('click', ev => this._nextTrack());
+		next.click(() => this._nextTrack());
 
 		// Shuffle button
-		shuffle.addEventListener('click', ev => {
+		shuffle.click(() => {
 			this.shuffle = !this.shuffle;
-			shuffle.classList.toggle('Control--disabled');
+			shuffle.toggleEnabled();
 
 			if (this.shuffle) {
 				this.playlist = this.utils.shuffle(this.playlist);
 			} else {
 				// Sort by ID
 				this.playlist.sort((a, b) => {
-					if (a.id < b.id)
-						return -1;
-					if (a.id > b.id)
-						return 1;
+					if (a.id < b.id) return -1;
+					if (a.id > b.id) return 1;
 					return 0;
 				});
 			}
 		});
 
 		// Loop button
-		loop.addEventListener('click', () => {
+		loop.click(() => {
 			this.autoplay = !this.autoplay;
-			loop.classList.toggle('Control--disabled')
+			loop.toggleEnabled();
 		});
 
 		// Jump to time
