@@ -21,7 +21,6 @@ class AppController extends AbstractController
     {
         return $this->render('app/index.html.twig', [
             'tracks'  => $tracks,
-            'current' => isset($tracks[0]) ? $tracks[0]->getId() : null,
         ]);
     }
 }
