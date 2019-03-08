@@ -1,3 +1,5 @@
+'use strict';
+
 import Track from './Track';
 
 export default class Player {
@@ -180,9 +182,10 @@ export default class Player {
 			loop.classList.toggle('Control--disabled')
 		});
 
-		// TODO Jump to time.
+		// Jump to time
 		document.querySelector('.Duration').addEventListener('click', ev => {
-			let percent = (ev.pageX - ev.target.offsetLeft) / ev.target.offsetWidth;
+			let position = ev.pageX - this.utils.offset(ev.currentTarget).left;
+			let percent = (position / ev.currentTarget.offsetWidth);
 			this.player.currentTime = Math.floor(percent * this.player.duration);
 		});
 	}

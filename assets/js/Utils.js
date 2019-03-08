@@ -71,4 +71,18 @@ export default class Utils {
 			navigator.mediaSession.metadata.album = track.category;
 		}
 	}
+
+	/**
+	 * Compute offset of given element
+	 *
+	 * @param {Element} element
+	 * @return {{top: number, left: number}}
+	 */
+	offset(element) {
+		let rect = element.getBoundingClientRect(), bodyElt = document.body;
+		return {
+			top: rect.top + bodyElt .scrollTop,
+			left: rect.left + bodyElt .scrollLeft
+		}
+	}
 }
