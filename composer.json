@@ -11,6 +11,7 @@
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.1.*",
         "symfony/console": "4.1.*",
+        "symfony/dotenv": "4.1.*",
         "symfony/expression-language": "4.1.*",
         "symfony/flex": "^1.1",
         "symfony/form": "4.1.*",
@@ -30,7 +31,6 @@
     },
     "require-dev": {
         "symfony/debug-pack": "*",
-        "symfony/dotenv": "4.1.*",
         "symfony/maker-bundle": "^1.0",
         "symfony/test-pack": "*",
         "symfony/web-server-bundle": "4.1.*"
