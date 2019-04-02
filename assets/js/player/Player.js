@@ -37,8 +37,8 @@ export default class Player {
 		let loopControl    = new Control(loop);
 
 		this._initPlaylist();
-		this._initMediaSession();
 		this._initAudioPlayer(playControl);
+		this._initMediaSession();
 		this._initControls(playControl, nextControl, prevControl, shuffleControl, loopControl);
 	}
 
