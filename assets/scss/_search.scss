@@ -12,3 +12,28 @@
 		}
 	}
 }
+
+#SearchResults {
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
+
+	background-color: #eee;
+
+	.ResultItem {
+		padding: 20px;
+
+		background-color: #939393;
+
+		cursor: pointer;
+
+		.highlight {
+			background-color: yellow;
+		}
+	}
+
+	.ResultItem:nth-child(2n+1) {
+		background-color: silver;
+	}
+}
