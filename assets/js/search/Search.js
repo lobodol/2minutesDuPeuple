@@ -29,7 +29,14 @@ export default class Search {
 			this._quickSearch(this.searchField.value.trim());
 		});
 		this.searchField.addEventListener('focus', () => this._showResults());
-		this.searchField.addEventListener('keyup', ev => this._quickSearch(this.searchField.value.trim()));
+		this.searchField.addEventListener('keyup', ev => {
+			// Escape key
+			if (ev.which === 27) {
+				this._hideResults();
+			} else {
+				this._quickSearch(this.searchField.value.trim())
+			}
+		});
 		this.searchField.addEventListener('change', ev => this._quickSearch(this.searchField.value.trim()));
 	}
 
