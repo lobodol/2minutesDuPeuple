@@ -1,10 +1,14 @@
 import Utils  from './Utils';
 import Player from './player/Player';
-import Search from './Search';
+import Search from './search/Search';
 
 const utils  = new Utils;
 const player = new Player(utils);
-const search = new Search(player, document.querySelector('#SearchForm'));
+const search = new Search(
+	player,
+	document.querySelector('#SearchForm'),
+	document.querySelector('#SearchResults')
+);
 
 player.init(
 	document.querySelector('.Control-play'),

@@ -1,3 +1,5 @@
+import Result from './Result';
+
 /**
  * Search component
  */
@@ -6,14 +8,16 @@ export default class Search {
 	/**
 	 * Search constructor
 	 *
-	 * @param {Player} player
-	 * @param {Element} searchForm
+	 * @param {Player}  player        The player object
+	 * @param {Element} searchForm    The search form element
+	 * @param {Element} resultWrapper The element where display results
 	 */
-	constructor(player, searchForm) {
-		this.searchField = searchForm.querySelector('input[type="search"]');
-		this.searchForm  = searchForm;
-		this.lastSearch  = null;
-		this.player = player;
+	constructor(player, searchForm, resultWrapper) {
+		this.searchField    = searchForm.querySelector('input[type="search"]');
+		this.searchForm     = searchForm;
+		this.resultWrapper  = resultWrapper;
+		this.lastSearch     = null;
+		this.player         = player;
 	}
 
 	/**
@@ -24,6 +28,7 @@ export default class Search {
 			ev.preventDefault(); // Do not really submit form
 			this._quickSearch(this.searchField.value.trim());
 		});
+		this.searchField.addEventListener('focus', () => this._showResults());
 		this.searchField.addEventListener('keyup', ev => this._quickSearch(this.searchField.value.trim()));
 		this.searchField.addEventListener('change', ev => this._quickSearch(this.searchField.value.trim()));
 	}
@@ -31,7 +36,7 @@ export default class Search {
 	/**
 	 * Forge HTTP request to search endpoint and display results
 	 *
-	 * @param {string} fulltext
+	 * @param {String} fulltext
 	 * @private
 	 */
 	_quickSearch(fulltext) {
@@ -42,7 +47,7 @@ export default class Search {
 			xhr.onreadystatechange = () => {
 				if (xhr.readyState === XMLHttpRequest.DONE) {
 					if (xhr.status === 200) {
-						this._displayResults(JSON.parse(xhr.responseText));
+						this._displayResults(JSON.parse(xhr.responseText), fulltext);
 					}
 					else if (xhr.status === 400) {
 						alert('There was an error 400');
@@ -59,27 +64,58 @@ export default class Search {
 	}
 
 	/**
-	 * TODO
 	 * Display result
 	 *
-	 * @param {array} results
+	 * @param {Array}  results
+	 * @param {string} fulltext
 	 * @private
 	 */
-	_displayResults(results) {
-		results.forEach(result => {
-			let element = new Element();
+	_displayResults(results, fulltext) {
+		this._clearResults();
 
-			element.addEventListener('click', () => {
-				// Search for it in the playlist
-				let track = this.player.playlist.find(item => {
-					return item.id === result.id;
+		results.forEach(result => {
+			// Search for the track in the playlist
+			let track = this.player.playlist.find(item => {return item.id === result.id})
+
+			if (track) {
+				let object  = new Result(track, result.keywords, fulltext);
+				let element = object.render();
+
+				element.addEventListener('click', () => {
+					this.player.playTrack(object.track);
+					this._hideResults();
 				});
 
-				if (track) {
-					this.player.playTrack(track);
-				}
-			});
+				this.resultWrapper.appendChild(element);
+			}
 		});
+	}
+
+	/**
+	 * Clear result list
+	 *
+	 * @private
+	 */
+	_clearResults() {
+		this.resultWrapper.innerHTML = '';
+	}
+
+	/**
+	 * Hide result list
+	 *
+	 * @private
+	 */
+	_hideResults() {
+		this.resultWrapper.style.display = 'none';
+	}
+
+	/**
+	 * Show result list
+	 *
+	 * @private
+	 */
+	_showResults() {
+		this.resultWrapper.style.display = 'initial';
 	}
 }
 
