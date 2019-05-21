@@ -28,6 +28,7 @@ export default class Search {
 			ev.preventDefault(); // Do not really submit form
 			this._quickSearch(this.searchField.value.trim());
 		});
+		this.searchField.addEventListener('focusout', () => this._hideResults());
 		this.searchField.addEventListener('focus', () => this._showResults());
 		this.searchField.addEventListener('keyup', ev => {
 			// Escape key
