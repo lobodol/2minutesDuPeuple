@@ -130,11 +130,11 @@ class Episode
         if (empty($datas['titre'])) {
             throw new Exception("titre can't be NULL");
         } else {
-            $this->titre = utf8_encode($datas['titre']);
+            $this->titre = $datas['titre'];
         }
 
         if (!empty($datas['details'])) {
-            $this->details = utf8_encode($datas['details']);
+            $this->details = $datas['details'];
         }
 
         if (!empty($datas['keywords'])) {
