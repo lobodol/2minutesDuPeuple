@@ -10,7 +10,7 @@ if (!empty($_POST['fulltext'])) {
         // Mise en surbrillance des résultats
         $result = hightlightResult($result, $_POST['fulltext']);
 
-        echo json_encode(utf8ize($result));
+        echo json_encode($result);
         returnHttpCode(200);
 
     } catch (Exception $e) {
@@ -97,25 +97,6 @@ function returnHttpCode($code)
 
     header("HTTP/1.0 $code");
     exit();
-}
-
-/**
- * UTF-8 encodes an array or a String
- *
- * @param array|string
- * @return array
- */
-function utf8ize($d)
-{
-    if (is_array($d)) {
-        foreach ($d as $k => $v) {
-            $d[$k] = utf8ize($v);
-        }
-    } else if (is_string ($d)) {
-        return utf8_encode($d);
-    }
-
-    return $d;
 }
 
 /**
