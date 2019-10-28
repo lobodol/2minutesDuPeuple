@@ -106,9 +106,6 @@ try {
     <a href="https://twitter.com/home?status=www.les2minutesdupeuple.tk" title="Partager sur Twitter" id="twitterButton" target="_blank"><!--
          --><img src="web/images/twitter.svg" width="30" height="30" alt="Partager sur Twitter"/><!--
      --></a>
-    <a href="https://plus.google.com/share?url=www.les2minutesdupeuple.tk" title="Partager sur Google+" id="googleButton" target="_blank"><!--
-         --><img src="web/images/google.svg" width="30" height="30" alt="Partager sur Google+"/><!--
-     --></a>
 </aside>
 
 <div id="modale">
