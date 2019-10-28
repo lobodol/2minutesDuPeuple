@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" type="text/css" href="web/css/style.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 </head>
 <body>
     <header>
@@ -117,6 +116,7 @@ try {
     <span></span>
 </div>
 
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="web/js/all.js"></script>
 
 </body>
