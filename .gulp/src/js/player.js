@@ -1,5 +1,18 @@
 // Declaration of global variables
-var player = new Audio('web/mp3/0003.mp3');
+var default_track = 'web/mp3/0003.mp3';
+var track_id      = new URLSearchParams(window.location.search).get('e')
+var track_time    = new URLSearchParams(window.location.search).get('t') || 0
+
+var track = document.getElementById(track_id);
+if (null !== track) {
+	default_track = track.querySelector('a').href
+	document.querySelector('li.active').classList.remove('active')
+	track.classList.add('active')
+	updateShareLinks(track_id)
+}
+
+var player = new Audio(default_track);
+player.currentTime = parseInt(track_time)
 var duration;
 var playlist = $('#listEpisodes');
 var episodes = [];
@@ -353,9 +366,9 @@ function calculateDuration(time) {
 /**
  * Jump to the next track
  *
- * @param integer current : id of the current episode
- * @param integer len     : total number of episodes
- * @param boolean random  :
+ * @param {number}  current : id of the current episode
+ * @param {number}  len     : total number of episodes
+ * @param {boolean} random  :
  * return integer         : id of the next episode
  */
 function next(current, len, random) {
@@ -514,10 +527,11 @@ function initArray(len) {
 
 /**
  * Update links of share buttons
- * @param integer episodeId
+ *
+ * @param {number} episodeId
  */
 function updateShareLinks(episodeId) {
-	var baseUrl = "www.firediy.fr#" + episodeId;
+	var baseUrl = "www.les2minutesdupeuple.ml?e=" + episodeId;
 	var facebook = "https://www.facebook.com/sharer/sharer.php?u=" + baseUrl;
 	var twitter = "https://twitter.com/home?status=" + baseUrl;
 	var google = "https://plus.google.com/share?url=" + baseUrl;
