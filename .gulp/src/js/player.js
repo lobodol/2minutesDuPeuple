@@ -9,6 +9,7 @@ if (null !== track) {
 	document.querySelector('li.active').classList.remove('active')
 	track.classList.add('active')
 	updateShareLinks(track_id)
+	scrollToElement(track_id)
 }
 
 var player = new Audio(default_track);
@@ -84,6 +85,7 @@ function init() {
 
 	player.addEventListener('timeupdate', function () {
 		var currentTime = player.currentTime;
+		updateShareLinks(current, currentTime)
 		var percent = Math.round((
 			currentTime / duration
 		) * 100);
@@ -427,6 +429,20 @@ function previous(current, len, random) {
 }
 
 /**
+ * Scroll to the element identified by the given ID
+ *
+ * @param {string} id
+ */
+function scrollToElement(id) {
+	var value = $("#" + id).offset().top;
+	value -= 100;
+
+	$('html, body').animate({
+		scrollTop: value + "px"
+	}, 200);
+}
+
+/**
  * Play the specified track
  *
  * @param object link   : the link of the track
@@ -460,15 +476,10 @@ function run(link) {
 	updateShareLinks(id);
 
 	if (!isScrolledIntoView(element)) {
-		var value = $("#" + id).offset().top;
-		value -= 100;
-
-		$('html, body').animate({
-			scrollTop: value + "px"
-		}, 200);
+		scrollToElement(id);
 	}
-
 }
+
 
 /**
  * Returns true if an element is visible without scrolling
@@ -528,7 +539,7 @@ function initArray(len) {
 /**
  * Update links of share buttons
  *
- * @param {number} episodeId
+ * @param {number}           episodeId
  */
 function updateShareLinks(episodeId) {
 	var baseUrl = "www.les2minutesdupeuple.ml?e=" + episodeId;
