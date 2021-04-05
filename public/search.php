@@ -1,5 +1,8 @@
 <?php
-require_once 'autoload.php';
+
+use App\Model\EpisodeRepository;
+
+require_once '../vendor/autoload.php';
 
 if (!empty($_POST['fulltext'])) {
     try {
