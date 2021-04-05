@@ -8,34 +8,34 @@ class Episode
     /**
      * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @var int
      */
-    private $episode_nr;
+    private int $episode_nr;
 
     /**
      * @var string
      */
-    private $titre;
+    private string $titre;
 
     /**
-     * @var null
+     * @var string|null
      */
-    private $details = null;
+    private ?string $details = null;
 
     /**
-     * @var null
+     * @var string|null
      */
-    private $keywords = null;
+    private ?string $keywords = null;
 
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -43,19 +43,19 @@ class Episode
     /**
      * Get episode_nr
      *
-     * @return string
+     * @return int
      */
-    public function getEpisodeNr()
+    public function getEpisodeNr(): int
     {
         return $this->episode_nr;
     }
 
     /**
-     * Return episode_nr 4 digits formated (prefixed with "0")
+     * Return episode_nr 4 digits formatted (prefixed with "0")
      *
      * @return string
      */
-    public function getFullEpisodeNr()
+    public function getFullEpisodeNr(): string
     {
         $nr = $this->getEpisodeNr();
 
@@ -71,7 +71,7 @@ class Episode
      *
      * @return string
      */
-    public function getTitre()
+    public function getTitre(): string
     {
         return $this->titre;
     }
@@ -79,9 +79,9 @@ class Episode
     /**
      * Get details
      *
-     * @return mixed
+     * @return string|null
      */
-    public function getDetails()
+    public function getDetails(): ?string
     {
         return $this->details;
     }
@@ -89,9 +89,9 @@ class Episode
     /**
      * Get keywords
      *
-     * @return mixed
+     * @return string|null
      */
-    public function getKeywords()
+    public function getKeywords(): ?string
     {
         return $this->keywords;
     }
@@ -101,44 +101,44 @@ class Episode
      *
      * @return string
      */
-    public function getMp3()
+    public function getMp3(): string
     {
-        return "/web/mp3/" . $this->getFullEpisodeNr() . ".mp3";
+        return "/mp3/" . $this->getFullEpisodeNr() . ".mp3";
     }
 
     /**
-     * Binds datas to this object
+     * Binds data to this object
      *
-     * @param array $datas : array of datas
-     * @throws Exception
+     * @param array $data : array of data
+     *
      * @return Episode
      */
-    public function bind($datas)
+    public function bind(array $data): self
     {
-        if (empty($datas['id'])) {
+        if (empty($data['id'])) {
             throw new Exception("ID can't be NULL");
         } else {
-            $this->id = $datas['id'];
+            $this->id = $data['id'];
         }
 
-        if (empty($datas['episode_nr'])) {
+        if (empty($data['episode_nr'])) {
             throw new Exception("episode_nr can't be NULL");
         } else {
-            $this->episode_nr = $datas['episode_nr'];
+            $this->episode_nr = $data['episode_nr'];
         }
 
-        if (empty($datas['titre'])) {
+        if (empty($data['titre'])) {
             throw new Exception("titre can't be NULL");
         } else {
-            $this->titre = $datas['titre'];
+            $this->titre = $data['titre'];
         }
 
-        if (!empty($datas['details'])) {
-            $this->details = $datas['details'];
+        if (!empty($data['details'])) {
+            $this->details = $data['details'];
         }
 
-        if (!empty($datas['keywords'])) {
-            $this->keywords = $datas['keywords'];
+        if (!empty($data['keywords'])) {
+            $this->keywords = $data['keywords'];
         }
 
         return $this;
