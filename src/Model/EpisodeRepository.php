@@ -8,11 +8,11 @@ namespace App\Model;
 class EpisodeRepository extends Repository
 {
     /**
-     * Get the list of episodes orderd by "details" and "titre"
+     * Get the list of episodes ordered by "details" and "titre"
      *
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         $pdo = self::getDbInstance();
 
@@ -39,7 +39,7 @@ class EpisodeRepository extends Repository
      * @param string $fulltext : the text to find out
      * @return array
      */
-    public function getFulltextDatas($fulltext)
+    public function getFulltextDatas(string $fulltext): array
     {
         $pdo = self::getDbInstance();
 
