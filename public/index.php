@@ -66,7 +66,6 @@ try {
             break;
 
         default:
-            var_dump($e);
             break;
     }
 
