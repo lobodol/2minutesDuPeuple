@@ -11,7 +11,7 @@ if (!empty($_POST['fulltext'])) {
         $result = $repo->getFulltextDatas(clearString($_POST['fulltext']));
 
         // Mise en surbrillance des résultats
-        $result = hightlightResult($result, $_POST['fulltext']);
+        $result = highlightResult($result, $_POST['fulltext']);
 
         echo json_encode(utf8ize($result));
         returnHttpCode(200);
@@ -30,7 +30,7 @@ returnHttpCode(400);
  * @param string $fulltext : term of research
  * @return array
  */
-function hightlightResult($result, $fulltext)
+function highlightResult(array $result, string $fulltext): array
 {
     foreach ($result as $key => $value) {
         $titre = utf8ize($value['titre']);
@@ -89,15 +89,10 @@ function hightlightResult($result, $fulltext)
 /**
  * Returns HTTP code
  *
- * @param integer $code
- * @throws Exception
+ * @param int $code
  */
-function returnHttpCode($code)
+function returnHttpCode(int $code)
 {
-    if (!preg_match("#^[0-9]+$#", $code)) {
-        throw new Exception("Bad parameter", 400);
-    }
-
     header("HTTP/1.0 $code");
     exit();
 }
@@ -106,7 +101,7 @@ function returnHttpCode($code)
  * UTF-8 encodes an array or a String
  *
  * @param array|string
- * @return array
+ * @return array|string
  */
 function utf8ize($d)
 {
@@ -128,7 +123,7 @@ function utf8ize($d)
  * @param string $charset (default utf-8)
  * @return string
  */
-function removeAccents($str, $charset='utf-8')
+function removeAccents(string $str, string $charset='utf-8'): string
 {
     $str = htmlentities($str, ENT_NOQUOTES, $charset);
     
@@ -145,11 +140,7 @@ function removeAccents($str, $charset='utf-8')
  * @param string $str
  * @return string
  */
-function clearString($str)
+function clearString(string $str): string
 {
-    if (!is_string($str)) {
-        return $str;
-    }
-
     return utf8ize(trim(removeAccents($str)));
 }
