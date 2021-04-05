@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model;
+
 /**
  * Class EpisodeRepository
  */
@@ -20,7 +22,7 @@ class EpisodeRepository extends Repository
         $episodes = array();
 
         if (false !== $result) {
-            foreach ($result->fetchAll(PDO::FETCH_ASSOC) as $datas) {
+            foreach ($result->fetchAll(\PDO::FETCH_ASSOC) as $datas) {
                 $episode = new Episode();
                 $episode->bind($datas);
 
@@ -46,6 +48,6 @@ class EpisodeRepository extends Repository
 
         $sth->execute(array(':fulltext' => "%" . $fulltext . "%"));
 
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $sth->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

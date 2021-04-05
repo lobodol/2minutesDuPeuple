@@ -31,10 +31,10 @@
 
 <?php
 
-require_once '../autoload.php';
+require_once '../vendor/autoload.php';
 try {
-    $repo = new EpisodeRepository();
-    /** @var Episode[] $episodes */
+    $repo = new App\Model\EpisodeRepository();
+    /** @var App\Model\Episode[] $episodes */
     $episodes = $repo->getAll();
 
     echo "<ul id='listEpisodes'>";
