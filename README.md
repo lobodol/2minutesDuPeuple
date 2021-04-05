@@ -5,7 +5,21 @@ Demo at [www.les2minutesdupeuple.ml](http://www.les2minutesdupeuple.ml).
 This version is a from-scratch-project. Next release will be done with Symfony Framework 3 shiping with a cool REST API.
 
 ## Installation
-### 1. Database structure
+### 1. Install PHP dependencies
+```bash
+composer install
+```
+
+### 2. Setup database credentials
+Make a copy of `.env` and update it according to your needs:
+```bash
+cp .env .env.loca
+vi .env.local
+```
+
+### 3. Database structure
+Create database structure:
+
 ```sql
 CREATE TABLE `episodes` (
   `id` int(11) NOT NULL,
@@ -16,10 +30,7 @@ CREATE TABLE `episodes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 ```
 
-### 2. Configuration
-Set database crendetials in `config/database.ini`.
-
-### 3. Build assets
+### 4. Build assets
 ```bash
 cd .gulp
 npm install

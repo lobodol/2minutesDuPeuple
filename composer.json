@@ -5,7 +5,8 @@
     "require": {
         "php": ">=7.4",
         "ext-pdo": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "symfony/dotenv": "^5.2"
     },
     "autoload": {
         "psr-4": {

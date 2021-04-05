@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use Symfony\Component\Dotenv\Dotenv;
+
 /**
  * Class Repository
  */
@@ -17,12 +19,12 @@ abstract class Repository
     protected static function getDbInstance(): \PDO
     {
         if (is_null(self::$instance)) {
-            $ini = self::getDbConfig();
+            self::loadEnvVariables();
 
-            try {
-                $bdd = new \PDO($ini['host'], $ini['user'], $ini['password']);
+                $bdd = new \PDO($_ENV['DATABASE_DSN']);
 
                 self::$instance = $bdd;
+            try {
             } catch (\PDOException $e) {
                 throw new \Exception("Erreur lors de la connection à la base de données", 500);
             }
@@ -31,21 +33,9 @@ abstract class Repository
         return self::$instance;
     }
 
-    /**
-     * Get DB config from INI file
-     *
-     * @return array
-     */
-    protected static function getDbConfig(): array
+    protected static function loadEnvVariables(): void
     {
-        $ini = parse_ini_file(__DIR__."/../../config/database.ini");
-
-        if (empty($ini['host']) || empty($ini['database']) || empty($ini['user']) || !isset($ini['password'])) {
-            throw new \Exception("Config file does not contain all required parameters");
-        }
-
-        $ini['host'] = "mysql:dbname=" . $ini['database'] . ";host=" . $ini['host'];
-
-        return $ini;
+        $dotenv = new Dotenv();
+        $dotenv->loadEnv(__DIR__.'/../../.env');
     }
 }
