@@ -1,5 +1,5 @@
 // Declaration of global variables
-var default_track = 'public/mp3/0003.mp3';
+var default_track = 'mp3/0003.mp3';
 var track_id      = new URLSearchParams(window.location.search).get('e')
 var track_time    = new URLSearchParams(window.location.search).get('t') || 0
 

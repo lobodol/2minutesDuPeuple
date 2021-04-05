@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model;
+
 /**
  * Class Episode
  */
@@ -116,19 +118,19 @@ class Episode
     public function bind(array $data): self
     {
         if (empty($data['id'])) {
-            throw new Exception("ID can't be NULL");
+            throw new \Exception("ID can't be NULL");
         } else {
             $this->id = $data['id'];
         }
 
         if (empty($data['episode_nr'])) {
-            throw new Exception("episode_nr can't be NULL");
+            throw new \Exception("episode_nr can't be NULL");
         } else {
             $this->episode_nr = $data['episode_nr'];
         }
 
         if (empty($data['titre'])) {
-            throw new Exception("titre can't be NULL");
+            throw new \Exception("titre can't be NULL");
         } else {
             $this->titre = $data['titre'];
         }

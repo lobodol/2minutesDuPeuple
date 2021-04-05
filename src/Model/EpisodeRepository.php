@@ -1,16 +1,18 @@
 <?php
 
+namespace App\Model;
+
 /**
  * Class EpisodeRepository
  */
 class EpisodeRepository extends Repository
 {
     /**
-     * Get the list of episodes orderd by "details" and "titre"
+     * Get the list of episodes ordered by "details" and "titre"
      *
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         $pdo = self::getDbInstance();
 
@@ -20,7 +22,7 @@ class EpisodeRepository extends Repository
         $episodes = array();
 
         if (false !== $result) {
-            foreach ($result->fetchAll(PDO::FETCH_ASSOC) as $datas) {
+            foreach ($result->fetchAll(\PDO::FETCH_ASSOC) as $datas) {
                 $episode = new Episode();
                 $episode->bind($datas);
 
@@ -37,7 +39,7 @@ class EpisodeRepository extends Repository
      * @param string $fulltext : the text to find out
      * @return array
      */
-    public function getFulltextDatas($fulltext)
+    public function getFulltextDatas(string $fulltext): array
     {
         $pdo = self::getDbInstance();
 
@@ -46,6 +48,6 @@ class EpisodeRepository extends Repository
 
         $sth->execute(array(':fulltext' => "%" . $fulltext . "%"));
 
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
+        return $sth->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
