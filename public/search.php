@@ -4,7 +4,7 @@ use App\Model\EpisodeRepository;
 
 require_once '../vendor/autoload.php';
 
-if (!empty($_POST['fulltext'])) {
+if (!empty($_POST['fulltext']) && is_string($_POST['fulltext'])) {
     try {
         // Récupération des données
         $repo = new EpisodeRepository();
