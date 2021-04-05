@@ -1,5 +1,5 @@
 .gulp/node_modules
 .idea
-web/mp3
-/web/css/style.css
-/web/js/all.js
+public/mp3
+public/css/style.css
+public/js/all.js

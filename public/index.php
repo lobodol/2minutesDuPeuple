@@ -7,21 +7,21 @@
 
     <title>Les 2 minutes du peuple</title>
 
-    <link rel="stylesheet" type="text/css" href="web/css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <header>
         <div id="logo"></div>
         <a href="#recherche" id="loupe">
-            <img src="web/images/search.svg" alt="Search"/>
+            <img src="images/search.svg" alt="Search"/>
         </a>
 
         <div id="recherche">
             <a href="#"></a>
 
             <input type="text" id="cherche" placeholder="Recherche rapide" />
-            <img src="web/images/cross.svg" width="15" height="15" id="croix" alt="Close"/>
+            <img src="images/cross.svg" width="15" height="15" id="croix" alt="Close"/>
 
             <div id="results">
                 <ul id="list-results"></ul>
@@ -31,7 +31,7 @@
 
 <?php
 
-require_once 'autoload.php';
+require_once '../autoload.php';
 try {
     $repo = new EpisodeRepository();
     /** @var Episode[] $episodes */
@@ -66,7 +66,7 @@ try {
             break;
 
         default:
-            echo "erreur de ouf";
+            var_dump($e);
             break;
     }
 
@@ -98,13 +98,13 @@ try {
 
 <aside id="social-share">
     <a href="#social-share">
-        <img alt="Social share buttons" src="web/images/share.svg" width="20" height="20" id="share-button">
+        <img alt="Social share buttons" src="images/share.svg" width="20" height="20" id="share-button">
     </a>
     <a href="https://www.facebook.com/sharer/sharer.php?u=www.les2minutesdupeuple.tk" title="Partager sur Facebook" id="facebookButton" target="_blank"><!--
-        --><img src="web/images/facebook.svg" width="30" height="30" alt="Partager sur Facebook"/><!--
+        --><img src="images/facebook.svg" width="30" height="30" alt="Partager sur Facebook"/><!--
      --></a>
     <a href="https://twitter.com/home?status=www.les2minutesdupeuple.tk" title="Partager sur Twitter" id="twitterButton" target="_blank"><!--
-         --><img src="web/images/twitter.svg" width="30" height="30" alt="Partager sur Twitter"/><!--
+         --><img src="images/twitter.svg" width="30" height="30" alt="Partager sur Twitter"/><!--
      --></a>
 </aside>
 
@@ -114,7 +114,7 @@ try {
 </div>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="web/js/all.js"></script>
+<script type="text/javascript" src="js/all.js"></script>
 
 </body>
 </html>
