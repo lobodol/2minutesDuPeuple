@@ -7,18 +7,16 @@ namespace App\Model;
  */
 abstract class Repository
 {
-    private static $instance = null;
+    private static ?\PDO $instance = null;
 
     /**
      * Get instance of database
      *
-     * @pattern Singleton
      * @return \PDO
      */
-    protected static function getDbInstance()
+    protected static function getDbInstance(): \PDO
     {
         if (is_null(self::$instance)) {
-            // Récupération des données de connection
             $ini = self::getDbConfig();
 
             try {
@@ -36,9 +34,9 @@ abstract class Repository
     /**
      * Get DB config from INI file
      *
-     * @return string
+     * @return array
      */
-    protected static function getDbConfig()
+    protected static function getDbConfig(): array
     {
         $ini = parse_ini_file(__DIR__."/../../config/database.ini");
 
