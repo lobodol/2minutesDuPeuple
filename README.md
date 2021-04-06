@@ -13,7 +13,7 @@ composer install
 ### 2. Setup database credentials
 Make a copy of `.env` and update it according to your needs:
 ```bash
-cp .env .env.loca
+cp .env .env.local
 vi .env.local
 ```
 
