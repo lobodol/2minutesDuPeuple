@@ -1,4 +1,6 @@
 const Encore = require('@symfony/webpack-encore');
+const path              = require('path')
+const SpritesmithPlugin = require('webpack-spritesmith');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -56,6 +58,19 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
     .enablePostCssLoader()
+    .addPlugin(new SpritesmithPlugin({
+        src: {
+            cwd: path.resolve(__dirname, 'assets/sprites'),
+            glob: "*.png"
+        },
+        target: {
+            image: path.resolve(__dirname, 'assets/images/spritesheet.png'),
+            css: path.resolve(__dirname, 'assets/scss/_sprites.scss')
+        },
+        apiOptions: {
+            cssImageRef: "../images/spritesheet.png"
+        }
+    }))
 
 // uncomment if you use TypeScript
 //.enableTypeScriptLoader()

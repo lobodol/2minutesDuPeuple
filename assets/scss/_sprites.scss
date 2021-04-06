@@ -1,27 +1,14 @@
-/*
-SCSS variables are information about icon's compiled state, stored under its original file name
-
-.icon-home {
-  width: $icon-home-width;
-}
-
-The large array-like variables contain all information about a single icon
-$icon-home: x y offset_x offset_y width height total_width total_height image_path;
-
-At the bottom of this section, we provide information about the spritesheet itself
-$spritesheet: width height image $spritesheet-sprites;
-*/
-$logo-name: 'logo';
-$logo-x: 0px;
-$logo-y: 0px;
-$logo-offset-x: 0px;
-$logo-offset-y: 0px;
-$logo-width: 128px;
-$logo-height: 32px;
-$logo-total-width: 128px;
-$logo-total-height: 87px;
-$logo-image: '../images/sprite.png';
-$logo: (0px, 0px, 0px, 0px, 128px, 32px, 128px, 87px, '../images/sprite.png', 'logo', );
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
 $loop-dark-name: 'loop-dark';
 $loop-dark-x: 72px;
 $loop-dark-y: 32px;
@@ -30,42 +17,20 @@ $loop-dark-offset-y: -32px;
 $loop-dark-width: 34px;
 $loop-dark-height: 19px;
 $loop-dark-total-width: 128px;
-$loop-dark-total-height: 87px;
-$loop-dark-image: '../images/sprite.png';
-$loop-dark: (72px, 32px, -72px, -32px, 34px, 19px, 128px, 87px, '../images/sprite.png', 'loop-dark', );
+$loop-dark-total-height: 77px;
+$loop-dark-image: '../images/spritesheet.png';
+$loop-dark: (72px, 32px, -72px, -32px, 34px, 19px, 128px, 77px, '../images/spritesheet.png', 'loop-dark', );
 $loop-light-name: 'loop-light';
-$loop-light-x: 58px;
+$loop-light-x: 0px;
 $loop-light-y: 58px;
-$loop-light-offset-x: -58px;
+$loop-light-offset-x: 0px;
 $loop-light-offset-y: -58px;
 $loop-light-width: 34px;
 $loop-light-height: 19px;
 $loop-light-total-width: 128px;
-$loop-light-total-height: 87px;
-$loop-light-image: '../images/sprite.png';
-$loop-light: (58px, 58px, -58px, -58px, 34px, 19px, 128px, 87px, '../images/sprite.png', 'loop-light', );
-$pause-name: 'pause';
-$pause-x: 0px;
-$pause-y: 58px;
-$pause-offset-x: 0px;
-$pause-offset-y: -58px;
-$pause-width: 29px;
-$pause-height: 29px;
-$pause-total-width: 128px;
-$pause-total-height: 87px;
-$pause-image: '../images/sprite.png';
-$pause: (0px, 58px, 0px, -58px, 29px, 29px, 128px, 87px, '../images/sprite.png', 'pause', );
-$play-name: 'play';
-$play-x: 29px;
-$play-y: 58px;
-$play-offset-x: -29px;
-$play-offset-y: -58px;
-$play-width: 29px;
-$play-height: 29px;
-$play-total-width: 128px;
-$play-total-height: 87px;
-$play-image: '../images/sprite.png';
-$play: (29px, 58px, -29px, -58px, 29px, 29px, 128px, 87px, '../images/sprite.png', 'play', );
+$loop-light-total-height: 77px;
+$loop-light-image: '../images/spritesheet.png';
+$loop-light: (0px, 58px, 0px, -58px, 34px, 19px, 128px, 77px, '../images/spritesheet.png', 'loop-light', );
 $random-dark-name: 'random-dark';
 $random-dark-x: 0px;
 $random-dark-y: 32px;
@@ -74,9 +39,9 @@ $random-dark-offset-y: -32px;
 $random-dark-width: 36px;
 $random-dark-height: 26px;
 $random-dark-total-width: 128px;
-$random-dark-total-height: 87px;
-$random-dark-image: '../images/sprite.png';
-$random-dark: (0px, 32px, 0px, -32px, 36px, 26px, 128px, 87px, '../images/sprite.png', 'random-dark', );
+$random-dark-total-height: 77px;
+$random-dark-image: '../images/spritesheet.png';
+$random-dark: (0px, 32px, 0px, -32px, 36px, 26px, 128px, 77px, '../images/spritesheet.png', 'random-dark', );
 $random-light-name: 'random-light';
 $random-light-x: 36px;
 $random-light-y: 32px;
@@ -85,41 +50,50 @@ $random-light-offset-y: -32px;
 $random-light-width: 36px;
 $random-light-height: 26px;
 $random-light-total-width: 128px;
-$random-light-total-height: 87px;
-$random-light-image: '../images/sprite.png';
-$random-light: (36px, 32px, -36px, -32px, 36px, 26px, 128px, 87px, '../images/sprite.png', 'random-light', );
+$random-light-total-height: 77px;
+$random-light-image: '../images/spritesheet.png';
+$random-light: (36px, 32px, -36px, -32px, 36px, 26px, 128px, 77px, '../images/spritesheet.png', 'random-light', );
+$logo-name: 'logo';
+$logo-x: 0px;
+$logo-y: 0px;
+$logo-offset-x: 0px;
+$logo-offset-y: 0px;
+$logo-width: 128px;
+$logo-height: 32px;
+$logo-total-width: 128px;
+$logo-total-height: 77px;
+$logo-image: '../images/spritesheet.png';
+$logo: (0px, 0px, 0px, 0px, 128px, 32px, 128px, 77px, '../images/spritesheet.png', 'logo', );
 $spritesheet-width: 128px;
-$spritesheet-height: 87px;
-$spritesheet-image: '../images/sprite.png';
-$spritesheet-sprites: ($logo, $loop-dark, $loop-light, $pause, $play, $random-dark, $random-light, );
-$spritesheet: (128px, 87px, '../images/sprite.png', $spritesheet-sprites, );
+$spritesheet-height: 77px;
+$spritesheet-image: '../images/spritesheet.png';
+$spritesheet-sprites: ($loop-dark, $loop-light, $random-dark, $random-light, $logo, );
+$spritesheet: (128px, 77px, '../images/spritesheet.png', $spritesheet-sprites, );
 
-/*
-The provided mixins are intended to be used with the array-like variables
-
-.icon-home {
-  @include sprite-width($icon-home);
-}
-
-.icon-email {
-  @include sprite($icon-email);
-}
-
-Example usage in HTML:
-
-`display: block` sprite:
-<div class="icon-home"></div>
-
-To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
-
-// CSS
-.icon {
-  display: inline-block;
-}
-
-// HTML
-<i class="icon icon-home"></i>
-*/
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
 @mixin sprite-width($sprite) {
   width: nth($sprite, 5);
 }
@@ -146,12 +120,10 @@ To change `display` (e.g. `display: inline-block;`), we suggest using a common C
   @include sprite-height($sprite);
 }
 
-/*
-The `sprites` mixin generates identical output to the CSS template
-  but can be overridden inside of SCSS
-
-@include sprites($spritesheet-sprites);
-*/
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
 @mixin sprites($sprites) {
   @each $sprite in $sprites {
     $sprite-name: nth($sprite, 10);
