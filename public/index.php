@@ -1,5 +1,10 @@
-<!DOCTYPE html>
-<html>
+<?php
+    require_once '../vendor/autoload.php';
+    $asset = new \App\AssetLoader\AssetLoader();
+    $encoreLinkTags = new \App\AssetLoader\EncoreEntryLinkTags();
+    $encoreScriptTags = new \App\AssetLoader\EncoreEntryScriptTags();
+?><!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
@@ -7,21 +12,21 @@
 
     <title>Les 2 minutes du peuple</title>
 
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <?php $encoreLinkTags(); ?>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <header>
         <div id="logo"></div>
         <a href="#recherche" id="loupe">
-            <img src="images/search.svg" alt="Search"/>
+            <img src="<?php $asset('build/images/search.svg')?>" alt="Search"/>
         </a>
 
         <div id="recherche">
             <a href="#"></a>
 
             <input type="text" id="cherche" placeholder="Recherche rapide" />
-            <img src="images/cross.svg" width="15" height="15" id="croix" alt="Close"/>
+            <img src="<?php $asset('build/images/cross.svg')?>" width="15" height="15" id="croix" alt="Close"/>
 
             <div id="results">
                 <ul id="list-results"></ul>
@@ -31,7 +36,6 @@
 
 <?php
 
-require_once '../vendor/autoload.php';
 try {
     $repo = new App\Model\EpisodeRepository();
     /** @var App\Model\Episode[] $episodes */
@@ -97,13 +101,13 @@ try {
 
 <aside id="social-share">
     <a href="#social-share">
-        <img alt="Social share buttons" src="images/share.svg" width="20" height="20" id="share-button">
+        <img alt="Social share buttons" src="<?php $asset('build/images/share.svg')?>" width="20" height="20" id="share-button">
     </a>
     <a href="https://www.facebook.com/sharer/sharer.php?u=www.les2minutesdupeuple.tk" title="Partager sur Facebook" id="facebookButton" target="_blank"><!--
-        --><img src="images/facebook.svg" width="30" height="30" alt="Partager sur Facebook"/><!--
+        --><img src="<?php $asset('build/images/facebook.svg')?>" width="30" height="30" alt="Partager sur Facebook"/><!--
      --></a>
     <a href="https://twitter.com/home?status=www.les2minutesdupeuple.tk" title="Partager sur Twitter" id="twitterButton" target="_blank"><!--
-         --><img src="images/twitter.svg" width="30" height="30" alt="Partager sur Twitter"/><!--
+         --><img src="<?php $asset('build/images/twitter.svg')?>" width="30" height="30" alt="Partager sur Twitter"/><!--
      --></a>
 </aside>
 
@@ -111,10 +115,7 @@ try {
     <span>&#10005;</span>
     <span></span>
 </div>
-
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script type="text/javascript" src="js/all.js"></script>
-
+<?php $encoreScriptTags(); ?>
 </body>
 </html>
 
