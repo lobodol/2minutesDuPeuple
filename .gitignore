@@ -1,5 +1,6 @@
-.gulp/node_modules
+node_modules
 .idea
+public/build
 public/mp3
 public/css/style.css
 public/js/all.js
