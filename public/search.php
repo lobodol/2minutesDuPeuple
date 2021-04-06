@@ -13,11 +13,12 @@ if (!empty($_POST['fulltext']) && is_string($_POST['fulltext'])) {
         // Mise en surbrillance des résultats
         $result = highlightResult($result, $_POST['fulltext']);
 
-        echo json_encode($result);
         returnHttpCode(200);
-
+        echo json_encode($result);
+        exit();
     } catch (Exception $e) {
         returnHttpCode($e->getCode());
+        exit();
     }
 }
 
@@ -92,7 +93,6 @@ function highlightResult(array $result, string $fulltext): array
 function returnHttpCode(int $code)
 {
     header("HTTP/1.0 $code");
-    exit();
 }
 
 /**
