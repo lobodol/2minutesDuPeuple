@@ -311,10 +311,12 @@ function init() {
  */
 function initMediaSession() {
 	$episode = $('#listEpisodes .active');
+	let titre = ''
+	let details = ''
 
 	if ($episode.length === 1) {
-		let titre = $episode.find('span:first-child').html();
-		let details = $episode.find('.details').html();
+		titre = $episode.find('span:first-child').html();
+		details = $episode.find('.details').html();
 	}
 
 	if ('mediaSession' in navigator) {
