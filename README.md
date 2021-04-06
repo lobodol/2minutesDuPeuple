@@ -32,7 +32,12 @@ CREATE TABLE `episodes` (
 
 ### 4. Build assets
 ```bash
-cd .gulp
-npm install
-gulp watch
+yarn install
+yarn encore dev --watch
+```
+
+### 5. Run
+You can run the app using the PHP built-in server:
+```bash
+php -S 127.0.0.1:8080 -t public
 ```

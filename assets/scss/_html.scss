@@ -12,7 +12,7 @@ h1
 {
     position: absolute;
     background-image: url(../images/spritesheet.png);
-    background-position: 0px -60px;
+    background-position: $logo-offset-x $logo-offset-y;
     background-repeat: no-repeat;
     width: 128px;
     height: 32px;
@@ -204,7 +204,7 @@ h1
     height: 26px;
     background-image: url("../images/spritesheet.png");
     background-repeat: no-repeat;
-    background-position: -36px 0px;
+    background-position: $random-dark-offset-x $random-dark-offset-y;
 
     left: 75%;
     margin-left: -18px;
@@ -213,7 +213,7 @@ h1
 
 .random
 {
-    background-position: -36px -26px !important;
+    background-position: $random-light-offset-x $random-light-offset-y !important;
 }
 
 #loop
@@ -224,11 +224,12 @@ h1
     margin-left: -17px;
     top: 121px;
     background-image: url("../images/spritesheet.png");
+    background-position: $loop-dark-offset-x $loop-dark-offset-y;
 }
 
 .loop
 {
-    background-position: 0px -30px !important;
+    background-position: $loop-light-offset-x $loop-light-offset-y !important;
 }
 
 .details
