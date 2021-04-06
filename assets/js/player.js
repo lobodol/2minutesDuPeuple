@@ -1,9 +1,9 @@
 // Declaration of global variables
-var default_track = 'mp3/0003.mp3';
-var track_id      = new URLSearchParams(window.location.search).get('e')
-var track_time    = new URLSearchParams(window.location.search).get('t') || 0
+let default_track = 'mp3/0003.mp3';
+let track_id      = new URLSearchParams(window.location.search).get('e')
+let track_time    = new URLSearchParams(window.location.search).get('t') || 0
 
-var track = document.getElementById(track_id);
+let track = document.getElementById(track_id);
 if (null !== track) {
 	default_track = track.querySelector('a').href
 	document.querySelector('li.active').classList.remove('active')
@@ -12,12 +12,12 @@ if (null !== track) {
 	scrollToElement(track_id)
 }
 
-var player = new Audio(default_track);
+let player = new Audio(default_track);
 player.currentTime = parseInt(track_time)
-var duration;
-var playlist = $('#listEpisodes');
-var episodes = [];
-var lastSearch = '';
+let duration;
+let playlist = $('#listEpisodes');
+let episodes = [];
+let lastSearch = '';
 
 $(function () {
 	init();
@@ -28,7 +28,7 @@ $(function () {
  * Focus search field when Ctrl+F is typed.
  */
 function focusSearch() {
-	var ctrlDown = false,
+	let ctrlDown = false,
 	    ctrlKey  = 17,
 	    cmdKey   = 91,
 	    fKey     = 70;
@@ -55,7 +55,7 @@ function focusSearch() {
  * @returns {boolean}
  */
 function isMobile() {
-	var isMobile = false; //initiate as false
+	let isMobile = false; //initiate as false
 
 	// device detection
 	if (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
@@ -72,10 +72,10 @@ function isMobile() {
  * Initialize the player commands
  */
 function init() {
-	var len = playlist.find('li').length - 1;
-	var random = false;
-	var loop = true;
-	var current = 0;
+	let len = playlist.find('li').length - 1;
+	let random = false;
+	let loop = true;
+	let current = 0;
 
 	// Listeners for progress bar and timing
 	player.addEventListener('loadedmetadata', function () {
@@ -84,9 +84,9 @@ function init() {
 	});
 
 	player.addEventListener('timeupdate', function () {
-		var currentTime = player.currentTime;
+		let currentTime = player.currentTime;
 		updateShareLinks(current, currentTime)
-		var percent = Math.round((
+		let percent = Math.round((
 			currentTime / duration
 		) * 100);
 
@@ -132,7 +132,7 @@ function init() {
 			return;
 		}
 
-		var fulltext = $.trim($(this).val());
+		let fulltext = $.trim($(this).val());
 
 		if (fulltext == "") {
 			$('#list-results').html("").hide();
@@ -156,16 +156,16 @@ function init() {
 				method: 'POST',
 				data:   {'fulltext': fulltext}
 			}).done(function (json) {
-				var data = jQuery.parseJSON(json);
-				var content = '';
+				let data = JSON.parse(json);
+				let content = '';
 
 				if (data.length == 0) {
 					content = "<li>Aucun résultat pour <i>" + fulltext + "</i></li>";
 				}
 
 				// Append results to the result list
-				for (var i = 0; i < data.length; i++) {
-					var object = data[i];
+				for (let i = 0; i < data.length; i++) {
+					let object = data[i];
 					content += "<li data-nb='" + object.episode_nr + "'><span>" + utf8_decode(object.titre)
 						+ "</span>";
 
@@ -186,10 +186,10 @@ function init() {
 				// When a track is selected in the result list
 				$('#list-results li').click(function () {
 					$('#list-results').hide();
-					var nb = formatId($(this).attr('data-nb'));
-					var id = $('#listEpisodes li[data-nb=' + nb + ']').attr('id');
+					let nb = formatId($(this).attr('data-nb'));
+					let id = $('#listEpisodes li[data-nb=' + nb + ']').attr('id');
 					id = parseInt(id) - 1; // Get the track ID just before the wanted one
-					var len = playlist.find('li').length - 1;
+					let len = playlist.find('li').length - 1;
 
 					current = next(id, len, false);
 
@@ -208,7 +208,7 @@ function init() {
 	});
 
 	$('#recherche').focusin(function () {
-		var search = $('#cherche').val();
+		let search = $('#cherche').val();
 
 		if (search.length >= 4) {
 			$('#list-results').fadeIn();
@@ -292,12 +292,12 @@ function init() {
 
 	// Jump to time track
 	$('#progressBar').click(function (e) {
-		var offset = $(this).offset();
-		var position = e.pageX - offset.left;
-		var percent = (
+		let offset = $(this).offset();
+		let position = e.pageX - offset.left;
+		let percent = (
 			position / $(this).width()
 		);
-		var goTo = Math.floor(percent * duration);
+		let goTo = Math.floor(percent * duration);
 
 		player.currentTime = goTo;
 	});
@@ -313,8 +313,8 @@ function initMediaSession() {
 	$episode = $('#listEpisodes .active');
 
 	if ($episode.length === 1) {
-		var titre = $episode.find('span:first-child').html();
-		var details = $episode.find('.details').html();
+		let titre = $episode.find('span:first-child').html();
+		let details = $episode.find('.details').html();
 	}
 
 	if ('mediaSession' in navigator) {
@@ -355,8 +355,8 @@ function calculateDuration(time) {
 		return;
 	}
 
-	var minutes = Math.floor(time / 60);
-	var seconds = Math.floor(time - minutes * 60);
+	let minutes = Math.floor(time / 60);
+	let seconds = Math.floor(time - minutes * 60);
 
 	seconds = (
 		seconds.toString().length <= 1
@@ -434,7 +434,7 @@ function previous(current, len, random) {
  * @param {string} id
  */
 function scrollToElement(id) {
-	var value = $("#" + id).offset().top;
+	let value = $("#" + id).offset().top;
 	value -= 100;
 
 	$('html, body').animate({
@@ -457,10 +457,10 @@ function run(link) {
 	player.load();
 	player.play();
 
-	var id = par.attr('id');
-	var element = document.getElementById(id);
-	var titre = $('#' + id + ' a span:first-child').html();
-	var details = $('#' + id + ' a .details').html();
+	let id = par.attr('id');
+	let element = document.getElementById(id);
+	let titre = $('#' + id + ' a span:first-child').html();
+	let details = $('#' + id + ' a .details').html();
 
 	// Update media information for Chrome Android.
 	if ('mediaSession' in navigator) {
@@ -486,14 +486,14 @@ function run(link) {
  * @param object elem : object to check visibility
  */
 function isScrolledIntoView(elem) {
-	var $elem = $(elem);
-	var $window = $(window);
+	let $elem = $(elem);
+	let $window = $(window);
 
-	var docViewTop = $window.scrollTop();
-	var docViewBottom = docViewTop + $window.height();
+	let docViewTop = $window.scrollTop();
+	let docViewBottom = docViewTop + $window.height();
 
-	var elemTop = $elem.offset().top;
-	var elemBottom = elemTop + $elem.height();
+	let elemTop = $elem.offset().top;
+	let elemBottom = elemTop + $elem.height();
 
 	return (
 		(
@@ -512,7 +512,7 @@ function isScrolledIntoView(elem) {
  */
 function shuffle(o) {
 	for (
-		var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
+		let j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x
 	) {
 		;
 	}
@@ -527,9 +527,9 @@ function shuffle(o) {
  * @return array
  */
 function initArray(len) {
-	var tab = [];
+	let tab = [];
 
-	for (var i = 0; i < len; i++) {
+	for (let i = 0; i < len; i++) {
 		tab[i] = i;
 	}
 
@@ -542,10 +542,10 @@ function initArray(len) {
  * @param {number}           episodeId
  */
 function updateShareLinks(episodeId) {
-	var baseUrl = "www.les2minutesdupeuple.ml?e=" + episodeId;
-	var facebook = "https://www.facebook.com/sharer/sharer.php?u=" + baseUrl;
-	var twitter = "https://twitter.com/home?status=" + baseUrl;
-	var google = "https://plus.google.com/share?url=" + baseUrl;
+	let baseUrl = "www.les2minutesdupeuple.ml?e=" + episodeId;
+	let facebook = "https://www.facebook.com/sharer/sharer.php?u=" + baseUrl;
+	let twitter = "https://twitter.com/home?status=" + baseUrl;
+	let google = "https://plus.google.com/share?url=" + baseUrl;
 
 	$('#facebookButton').attr('href', facebook);
 	$('#twitterButton').attr('href', twitter);
@@ -573,7 +573,7 @@ function stopLoading() {
 function formatId(id) {
 	id = String(id);
 
-	for (var i = 4; id.length < 4; i--) {
+	for (let i = 4; id.length < 4; i--) {
 		id = "0" + id;
 	}
 
@@ -599,7 +599,7 @@ function utf8_decode(str_data) {
 	//   example 1: utf8_decode('Kevin van Zonneveld');
 	//   returns 1: 'Kevin van Zonneveld'
 
-	var tmp_arr = [], i = 0, ac = 0, c1 = 0, c2 = 0, c3 = 0, c4 = 0;
+	let tmp_arr = [], i = 0, ac = 0, c1 = 0, c2 = 0, c3 = 0, c4 = 0;
 
 	str_data += '';
 
