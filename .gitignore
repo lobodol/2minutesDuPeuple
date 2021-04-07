@@ -5,4 +5,6 @@ public/css/style.css
 public/js/all.js
 .env*.local
 /vendor/
-/docker/mysql/
+!/docker/mysql/initdb
+/docker/mysql/data/*
+!/docker/mysql/data/.gitkeep
