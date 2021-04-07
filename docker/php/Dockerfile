@@ -1,6 +1,6 @@
 FROM php:8.0-fpm
 
-RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get update -y && apt-get install -y git
 
 RUN docker-php-ext-install pdo_mysql
 
