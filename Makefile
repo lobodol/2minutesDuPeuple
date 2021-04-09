@@ -22,4 +22,4 @@ dev: clean ## Start all containers
 	@docker-compose up -d --build --force-recreate
 
 install: assets-prod dev
-	@docker-compose exec php composer install -o
+	@docker-compose exec app composer install -o

@@ -1,6 +1,6 @@
 version: '3'
 services:
-  php:
+  app:
     build: ./docker/php
     volumes:
       - .:/var/www/2mdp
@@ -9,7 +9,7 @@ services:
     environment:
       COMPOSER_MEMORY_LIMIT: -1
 
-  apache:
+  server:
     build: ./docker/apache
     volumes:
       - ./public:/var/www/2mdp
@@ -17,7 +17,7 @@ services:
       - "80:80"
       - "443:443"
 
-  mysql:
+  database:
     image: mariadb:10.3.27
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
