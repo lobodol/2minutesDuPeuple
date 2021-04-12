@@ -103,10 +103,10 @@ try {
     <a href="#social-share">
         <img alt="Social share buttons" src="<?php $asset('build/images/share.svg')?>" width="20" height="20" id="share-button">
     </a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=www.les2minutesdupeuple.tk" title="Partager sur Facebook" id="facebookButton" target="_blank" rel="noreferrer noopener"><!--
+    <a href="https://www.facebook.com/sharer/sharer.php?u=www.les2minutesdupeuple.ml" title="Partager sur Facebook" id="facebookButton" target="_blank" rel="noreferrer noopener"><!--
         --><img src="<?php $asset('build/images/facebook.svg')?>" width="30" height="30" alt="Partager sur Facebook"/><!--
      --></a>
-    <a href="https://twitter.com/home?status=www.les2minutesdupeuple.tk" title="Partager sur Twitter" id="twitterButton" target="_blank" rel="noreferrer noopener"><!--
+    <a href="https://twitter.com/home?status=www.les2minutesdupeuple.ml" title="Partager sur Twitter" id="twitterButton" target="_blank" rel="noreferrer noopener"><!--
          --><img src="<?php $asset('build/images/twitter.svg')?>" width="30" height="30" alt="Partager sur Twitter"/><!--
      --></a>
 </aside>
