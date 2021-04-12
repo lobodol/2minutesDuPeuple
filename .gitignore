@@ -1,5 +1,10 @@
-.gulp/node_modules
-.idea
-web/mp3
-/web/css/style.css
-/web/js/all.js
+node_modules
+public/build
+public/mp3
+public/css/style.css
+public/js/all.js
+.env*.local
+/vendor/
+!/docker/mysql/initdb
+/docker/mysql/data/*
+!/docker/mysql/data/.gitkeep

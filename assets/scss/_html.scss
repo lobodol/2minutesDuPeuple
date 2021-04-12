@@ -1,0 +1,837 @@
+html, body {
+    margin:0; padding:0;
+    font-family: 'Open Sans';
+}
+
+h1
+{
+    text-align: center;
+}
+
+#logo
+{
+    position: absolute;
+    background-image: url(../images/spritesheet.png);
+    background-position: $logo-offset-x $logo-offset-y;
+    background-repeat: no-repeat;
+    width: 128px;
+    height: 32px;
+    top: 8px;
+    left: 25px;
+}
+
+#modale
+{
+    display: none;
+}
+
+#player
+{
+    width: 100%;
+    max-width: 700px;
+    background-color: #2b2b2b;
+    margin: auto;
+    position: relative;
+    height: 100px;
+}
+
+#listEpisodes
+{
+    list-style: none;
+    padding: 0;
+}
+
+#listEpisodes li
+{
+    height: 50px;
+    overflow: hidden;
+}
+
+#listEpisodes li:nth-child(2n) a
+{
+    background-color: #393939;
+}
+
+#listEpisodes li a
+{
+    position: relative;
+    text-decoration: none;
+    color: #eee;
+    background-color: #323232;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    padding-left: 50px;
+    font-size: 0.8em;
+}
+
+#listEpisodes li a:hover
+{
+    background-color: #23232c;
+    color: #eee
+}
+
+#listEpisodes li a:before
+{
+    display: block;
+    position: absolute;
+    content: "";
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    left: 10px;
+    top: 10px;
+    background-color: #4d4d4d;
+    box-shadow: 0 0 3px rgba(0,0,0,0.25);
+}
+
+#listEpisodes li a:after
+{
+    content: "";
+    display: block;
+    position: absolute;
+
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 0 6px 10px;
+    border-color: transparent transparent transparent #c8cbcd;
+    left: 20px;
+    top: 18px;
+}
+
+.active a
+{
+    background-color: #e07934 !important;
+}
+
+.active a:before
+{
+    background-color: #e6e6e6 !important;
+}
+
+.active a:after
+{
+    content: "";
+    width: 2px !important;
+    height: 11px !important;
+    border-left: solid 3px #323232 !important;
+    border-right: solid 3px #323232 !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    color: #323232;
+    top: 19px !important;
+    left: 20px !important;
+}
+
+
+/******************************/
+/*     Style des controls     */
+/******************************/
+#controls div
+{
+    cursor: pointer;
+    position: absolute;
+}
+
+#playpause
+{
+    left: 50%;
+    margin-top: 20px;
+}
+
+
+.play
+{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 30px 0 30px 60px;
+    border-color: transparent transparent transparent #eee;
+    margin-left: -25px;
+}
+
+.pause
+{
+    width: 9px;
+    height: 60px;
+    margin-left: -20px;
+    border-left: solid 16px #eee;
+    border-right: solid 16px #eee;
+}
+
+#prev
+{
+    left: 25%;
+    top: 52px;
+    margin-left: -26px;
+}
+
+#next
+{
+    left: 75%;
+    top: 52px;
+    margin-left: -26px;
+}
+
+.prev
+{
+    position: relative !important;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 26px 15px 0;
+    border-color: transparent #eee transparent transparent;
+
+}
+
+.next
+{
+    position: relative !important;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 0 15px 26px;
+    border-color: transparent transparent transparent #eee;
+}
+
+#shuffle
+{
+    width: 36px;
+    height: 26px;
+    background-image: url("../images/spritesheet.png");
+    background-repeat: no-repeat;
+    background-position: $random-dark-offset-x $random-dark-offset-y;
+
+    left: 75%;
+    margin-left: -18px;
+    top: 118px;
+}
+
+.random
+{
+    background-position: $random-light-offset-x $random-light-offset-y !important;
+}
+
+#loop
+{
+    width: 34px;
+    height: 19px;
+    left: 25%;
+    margin-left: -17px;
+    top: 121px;
+    background-image: url("../images/spritesheet.png");
+    background-position: $loop-dark-offset-x $loop-dark-offset-y;
+}
+
+.loop
+{
+    background-position: $loop-light-offset-x $loop-light-offset-y !important;
+}
+
+.details
+{
+    color: #5c5c5c;
+    display: block;
+}
+
+/**
+ * Mode desktop
+ */
+@media screen and (min-width: 701px)
+{
+    html
+    {
+        background-image: url(../images/background.jpg);
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    header
+    {
+        z-index: 10;
+        width: 100%;
+        height: 50px;
+        margin: auto;
+        background-color: #2b2b2b;
+        position: fixed;
+        top: 0;
+        color: #e6e6e6;
+
+        box-shadow: 1px 0 3px rgba(0,0,0,0.5);
+    }
+
+    #modale
+    {
+        background: white none repeat scroll 0 0;
+        border-radius: 10px;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        left: 50%;
+        margin-left: -260px;
+        min-height: 100px;
+        padding: 10px;
+        position: fixed;
+        top: 100px;
+        width: 500px;
+        z-index: 200;
+    }
+
+    #modale:before
+    {
+        content: "";
+        position: fixed;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    #list-results
+    {
+        display: none;
+        background-color: #222;
+        width: 320px;
+        font-size: 0.7em;
+        list-style: none;
+        padding: 0;
+        -webtki-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+           -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+             -o-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+                box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    #list-results li {
+        padding: 10px;
+        height: 40px;
+        cursor: pointer;
+    }
+
+    #list-results li span
+    {
+        display: block;
+    }
+
+    #list-results li:nth-child(2n+1)
+    {
+        background-color: #393939;
+    }
+
+    #list-results .keywords
+    {
+        font-style: italic;
+        font-size: 0.85em;
+    }
+
+    #list-results .highlight
+    {
+        color: orange;
+        display: inline;
+    }
+
+    #listEpisodes
+    {
+        width: 500px;
+        margin: auto;
+        margin-top: 60px;
+        margin-bottom: 100px;
+        box-shadow: 0 0 3px rgba(0,0,0,0.5);
+    }
+
+    #player
+    {
+        max-width: 500px;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        margin-left: -250px;
+    }
+
+    #progressBar
+    {
+        width: 100%;
+        height: 8px;
+        background-color: #232324;
+        cursor: pointer;
+    }
+
+    #duration
+    {
+        background-color: #e07934;
+        height: 100%;
+        width: 0px;
+    }
+
+    .time
+    {
+        background-color: rgba(0,0,0,0.25);
+        color: #eee;
+        display: inline-block;
+        padding-left: 3px;
+        padding-right: 3px;
+        margin-bottom: 20px;
+        position: absolute;
+        top: -22px;
+    }
+
+    #currentTime
+    {
+        left: 0;
+    }
+
+    #maxTime
+    {
+        right: 0;
+    }
+
+    #playpause
+    {
+        top: 1px !important;
+    }
+
+    #prev, #next
+    {
+        top: 20px;
+        margin-left: -17px;
+    }
+
+    .next
+    {
+        border-width: 10px 0 10px 17px;
+    }
+
+    .prev
+    {
+        border-width: 10px 17px 10px 0;
+    }
+
+    #loop, #shuffle
+    {
+        top: 60px;
+    }
+
+    #logo
+    {
+        left: 50%;
+        margin-left: -250px;
+        position: absolute;
+        top: 8px;
+    }
+
+    #recherche
+    {
+        position: absolute;
+        width: 180px;
+        top: 10px;
+        left: 50%;
+        margin-left: 69px;
+    }
+
+    #recherche img
+    {
+       position: absolute;
+       display: block;
+       top: 7px;
+       right: 7px;
+    }
+
+    #recherche #croix
+    {
+        display: none;
+        cursor: pointer;
+    }
+
+    header a#loupe {
+        position: absolute;
+        left: 50%;
+        margin-left: 226px;
+        z-index: 10;
+        top: 15px;
+    }
+    header a#loupe img {
+        width: 15px;
+        height: 15px;
+    }
+
+    #cherche
+    {
+        border-radius: 50px;
+        border: none;
+        height: 20px;
+        width: 150px;
+        padding: 5px 15px 5px 15px;
+    }
+
+    #social-share
+    {
+       position: fixed;
+       border-radius: 50px;
+       z-index: 9;
+       left: 50%;
+       margin-left: 290px;
+       top: 50%;
+       width: 30px;
+       background-color: #2B2B2B;
+       padding: 10px 5px 20px 5px;
+       tex-align: center;
+       box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    }
+
+    #social-share a
+    {
+       display: block;
+       margin: auto;
+       text-align: center;
+    }
+
+    #share-button
+    {
+       margin-bottom: 10px;
+    }
+}
+
+/**
+ * Mode smartphone paysage
+ */
+@media all and (max-width:700px) and (min-aspect-ratio: 13/9)
+{
+    #player
+    {
+        width: 40%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        background-color: #2b2b2b;
+    }
+
+    #listEpisodes
+    {
+        width: 60%;
+    }
+
+    #miniature
+    {
+        width: 158px;
+        height: 117px;
+        background-image: url('../images/miniature.jpg');
+        background-position: top left;
+        background-repeat: no-repeat;
+        position: absolute;
+        left: 50%;
+        margin-left: -79px;
+        margin-top: 20px;
+    }
+
+    #progressBar
+    {
+        position: relative;
+        width: 80%;
+        height: 7px;
+        background-color: #39393a;
+        margin: auto;
+        margin-top: 167px;
+        cursor: pointer;
+    }
+
+    .time
+    {
+        color: #eee;
+        font-size: 0.8em;
+        position: absolute;
+        top: -25px;
+    }
+
+    #currentTime
+    {
+        left: -10px;
+    }
+
+    #maxTime
+    {
+        right: -10px;
+    }
+
+    #duration
+    {
+        background-color: #e07934;
+        height: 100%;
+        width: 0px;
+        position: relative;
+    }
+
+    #duration:before
+    {
+        content: "";
+        width: 13px;
+        height: 13px;
+        border-radius: 100%;
+        background-color: #c8cbcd;
+        position: absolute;
+        right: -12px;
+        top: -3px;
+    }
+
+
+    #duration:after
+    {
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 100%;
+        background-color: #aaa;
+        right: -8px;
+        top: 1px;
+    }
+
+    /**********************/
+    /* Style des controls */
+    /**********************/
+    .play
+    {
+        border-width: 20px 0 20px 40px;
+        margin-left: -16px;
+    }
+
+    .pause
+    {
+        border-left: solid 10px #eee !important;
+        border-right: solid 10px #eee !important;
+        width: 5px;
+        height: 40px;
+        margin-left: -13px;
+    }
+
+    #prev, #next
+    {
+        top: auto;
+        margin-top: 30px;
+        margin-left: -17px;
+    }
+
+    .prev
+    {
+        border-width: 10px 17px 10px 0;
+
+    }
+
+    .next
+    {
+        border-width: 10px 0 10px 17px;
+    }
+
+    #shuffle
+    {
+        top: auto;
+        margin-top: 75px;
+    }
+
+    #loop
+    {
+        top: auto;
+        margin-top: 77px;
+    }
+}
+
+/**
+ * Mode smartphone portrait
+ */
+@media all and (max-width:700px) and (max-aspect-ratio: 13/9)
+{
+    h1
+    {
+        font-size: 1.5em;
+    }
+
+    #logo {
+        left: 12px;
+    }
+
+    header
+    {
+        position: fixed;
+        top: 0;
+        height: 30px;
+        width: 100%;
+        color: #eee;
+        background-color: #2b2b2b;
+        z-index: 2;
+        padding: 10px;
+    }
+
+    #player
+    {
+        width: 100%;
+        height: 166px;
+        position: fixed;
+        bottom: 0;
+        background-color: #2b2b2b;
+        z-index: 2;
+    }
+
+    /* Style de la barre de progression */
+    #progressBar
+    {
+        position: relative;
+        width: 65%;
+        height: 7px;
+        background-color: #39393a;
+        margin: auto;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+    .time
+    {
+        color: #eee;
+        font-size: 0.8em;
+        position: absolute;
+        top: -6px;
+    }
+
+    #currentTime
+    {
+        left: -45px;
+    }
+
+    #maxTime
+    {
+        right: -45px;
+    }
+
+    #duration
+    {
+        background-color: #e07934;
+        height: 100%;
+        width: 0px;
+        position: relative;
+    }
+
+    #duration:before
+    {
+        content: "";
+        width: 13px;
+        height: 13px;
+        border-radius: 100%;
+        background-color: #c8cbcd;
+        position: absolute;
+        right: -12px;
+        top: -3px;
+    }
+
+
+    #duration:after
+    {
+        content: "";
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 100%;
+        background-color: #aaa;
+        right: -8px;
+        top: 1px;
+    }
+
+    /* Style de la playlist */
+    #listEpisodes
+    {
+        height: 100%;
+        overflow: hidden;
+        margin-bottom: 166px;
+        margin-top: 50px;
+    }
+
+    /* Style de la recherche */
+    #loupe {
+        position: absolute;
+        right: 40px;
+        top: 15px;
+    }
+
+    #loupe img {
+        width: 20px;
+        height: 20px;
+    }
+
+    #recherche {
+        background-color: #2b2b2b;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 100%;
+        top: 0;
+
+        -webkit-transition: all 0.25s ease;
+        -moz-transition: all 0.25s ease;
+        -ms-transition: all 0.25s ease;
+        -o-transition: all 0.25s ease;
+        transition: all 0.25s ease;
+        margin: 0;
+        padding: 0;
+    }
+
+    #recherche:target {
+        left: 0;
+    }
+
+    #recherche a {
+        position: absolute;
+        top: 11px;
+        left: 10px;
+        display: block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 15px 15px 15px 0;
+        border-color: transparent #ffffff transparent transparent;
+    }
+    #recherche a:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 15px 15px 15px 0;
+        border-color: transparent #2b2b2b transparent transparent;
+        left: 2px;
+        top: -15px;
+    }
+
+    #cherche {
+        padding: 8px 15px 8px 15px;
+        border-radius: 20px;
+        border: none;
+        left: 40px;
+        top: 9px;
+        position: absolute;
+    }
+
+    #croix {
+        position: absolute;
+        top: 17px;
+        left: 216px;
+        display: none;
+    }
+
+    #results {
+        position: absolute;
+        top: 50px;
+        width: 100%;
+    }
+
+    #list-results {
+        list-style: none;
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+}

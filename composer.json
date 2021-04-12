@@ -1,0 +1,23 @@
+{
+    "name": "lobodol/2minutesdupeuple",
+    "description": "Responsive web player for \"les deux minutes du peuple\"",
+    "type": "project",
+    "require": {
+        "php": ">=7.4",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "symfony/dotenv": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "lobodol",
+            "email": "grobodol@gmail.com"
+        }
+    ]
+}
