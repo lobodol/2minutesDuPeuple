@@ -1,0 +1,29 @@
+version: '3'
+services:
+  app:
+    build: ./docker/php
+    volumes:
+      - .:/var/www/2mdp
+    dns:
+      - 1.1.1.1
+    environment:
+      COMPOSER_MEMORY_LIMIT: -1
+
+  server:
+    build: ./docker/apache
+    volumes:
+      - ./public:/var/www/2mdp
+    ports:
+      - "80:80"
+      - "443:443"
+
+  database:
+    image: mariadb:10.3.27
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/initdb:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: 'foo'
+      MYSQL_DATABASE: '2mdp'
+    ports:
+      - "3306:3306"

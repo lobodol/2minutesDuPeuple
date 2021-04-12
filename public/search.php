@@ -13,11 +13,12 @@ if (!empty($_POST['fulltext']) && is_string($_POST['fulltext'])) {
         // Mise en surbrillance des résultats
         $result = highlightResult($result, $_POST['fulltext']);
 
-        echo json_encode(utf8ize($result));
         returnHttpCode(200);
-
+        echo json_encode($result);
+        exit();
     } catch (Exception $e) {
         returnHttpCode($e->getCode());
+        exit();
     }
 }
 
@@ -33,7 +34,7 @@ returnHttpCode(400);
 function highlightResult(array $result, string $fulltext): array
 {
     foreach ($result as $key => $value) {
-        $titre = utf8ize($value['titre']);
+        $titre = $value['titre'];
 
         // Mise en surbrillance du titre
         if (stripos($titre, clearString($fulltext)) !== FALSE) {
@@ -49,13 +50,13 @@ function highlightResult(array $result, string $fulltext): array
         }
 
         // Mise en surbrillance du details
-        if (!empty($value['details']) && stripos(utf8ize($value['details']), clearString($fulltext)) !== FALSE) {
+        if (!empty($value['details']) && stripos($value['details'], clearString($fulltext)) !== FALSE) {
             $pattern = "#(.*)(" . clearString($fulltext) . ")(.*)#i";
-            $result[$key]['details'] = preg_replace($pattern, "$1<span class='highlight'>$2</span>$3", utf8ize($value['details']));
+            $result[$key]['details'] = preg_replace($pattern, "$1<span class='highlight'>$2</span>$3", $value['details']);
 
-        } elseif (!empty($value['details']) && stripos(utf8ize($value['details']), $fulltext) !== FALSE) {
+        } elseif (!empty($value['details']) && stripos($value['details'], $fulltext) !== FALSE) {
             $pattern = "#(.*)(" . $fulltext . ")(.*)#i";
-            $result[$key]['details'] = preg_replace($pattern, "$1<span class='highlight'>$2</span>$3", utf8ize($value['details']));
+            $result[$key]['details'] = preg_replace($pattern, "$1<span class='highlight'>$2</span>$3", $value['details']);
         }
 
         // Mise en surbrillance des mots-clés
@@ -63,8 +64,6 @@ function highlightResult(array $result, string $fulltext): array
             $keywords = explode("\n", $value['keywords']);
 
             foreach ($keywords as $string) {
-                $string = utf8ize($string);
-
                 if (stripos($string, clearString($fulltext)) !== FALSE) {
                     $pattern = "#(.*)(" . clearString($fulltext) . ")(.*)#i";
                     $result[$key]['keywords'] = '"' . preg_replace($pattern, "...$1<span class='highlight'>$2</span>$3...", $string) . '"';
@@ -94,26 +93,6 @@ function highlightResult(array $result, string $fulltext): array
 function returnHttpCode(int $code)
 {
     header("HTTP/1.0 $code");
-    exit();
-}
-
-/**
- * UTF-8 encodes an array or a String
- *
- * @param array|string
- * @return array|string
- */
-function utf8ize($d)
-{
-    if (is_array($d)) {
-        foreach ($d as $k => $v) {
-            $d[$k] = utf8ize($v);
-        }
-    } else if (is_string ($d)) {
-        return utf8_encode($d);
-    }
-
-    return $d;
 }
 
 /**
@@ -142,5 +121,5 @@ function removeAccents(string $str, string $charset='utf-8'): string
  */
 function clearString(string $str): string
 {
-    return utf8ize(trim(removeAccents($str)));
+    return trim(removeAccents($str));
 }
