@@ -9,6 +9,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=no">
     <meta name="description" content="Le player du peuple, le meilleur moyen d'écouter et de rechercher un épisode des 2 minutes du peuple de François Pérusse !">
+    <meta name="rating" content="safe for kids">
+
+    <meta property="og:type" content="music.playlist">
+    <meta property="og:title" content="Les 2 minutes du peuple">
+    <meta property="og:url" content="https://www.les2minutesdupeuple.ml">
+    <meta property="og:image" content="https://www.les2minutesdupeuple.ml<?php $asset('build/images/miniature.jpg')?>">
+    <meta property="og:description" content="Le player du peuple, le meilleur moyen d'écouter et de rechercher un épisode des 2 minutes du peuple de François Pérusse !">
+    <meta property="og:audio" content="https://www.les2minutesdupeuple.ml">
 
     <title>Les 2 minutes du peuple</title>
 
