@@ -17,7 +17,11 @@
 </head>
 <body>
     <header>
-        <div id="logo"></div>
+        <h1>
+            <span>Les</span>
+            <span>2</span>
+            <span>minutes<br> du peuple</span>
+        </h1>
         <a href="#recherche" id="loupe">
             <img src="<?php $asset('build/images/search.svg')?>" alt="Search"/>
         </a>
