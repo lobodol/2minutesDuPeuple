@@ -1,12 +1,12 @@
 # Player du peuple
 Responsive web player for "les deux minutes du peuple".
-Demo at [www.les2minutesdupeuple.ml](http://www.les2minutesdupeuple.ml).
+Demo at [www.les2minutesdupeuple.xyz](http://www.les2minutesdupeuple.xyz).
 
 ## Installation
 ### Docker installation
 Add the following line in your `/etc/hosts` file:
 ```
-127.0.0.1 dev.les2minutesdupeuple.ml
+127.0.0.1 dev.les2minutesdupeuple.xyz
 ```
 
 Then, run:
@@ -14,7 +14,7 @@ Then, run:
 make install
 ```
 
-You're done: https://dev.les2minutesdupeuple.ml
+You're done: https://dev.les2minutesdupeuple.xyz
 
 ### Manual installation
 #### 1. Install PHP dependencies
