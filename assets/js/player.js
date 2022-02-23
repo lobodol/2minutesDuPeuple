@@ -541,17 +541,15 @@ function initArray(len) {
 /**
  * Update links of share buttons
  *
- * @param {number}           episodeId
+ * @param {number} episodeId
  */
 function updateShareLinks(episodeId) {
-	let baseUrl = "www.les2minutesdupeuple.ml?e=" + episodeId;
+	const baseUrl = window.location.protocol + '//' + window.location.host + '?e=' + episodeId
 	let facebook = "https://www.facebook.com/sharer/sharer.php?u=" + baseUrl;
 	let twitter = "https://twitter.com/home?status=" + baseUrl;
-	let google = "https://plus.google.com/share?url=" + baseUrl;
 
 	$('#facebookButton').attr('href', facebook);
 	$('#twitterButton').attr('href', twitter);
-	$('#googleButton').attr('href', google);
 }
 
 /**
